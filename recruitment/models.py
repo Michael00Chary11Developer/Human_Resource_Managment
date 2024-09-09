@@ -5,10 +5,10 @@ from datetime import datetime
 class RecruitmentDateDetails(models.Model):
     id = models.AutoField(primary_key=True)
     recruitment_date = models.DateField()
-    numberـofـdaysـreceived = models.DurationField()
-    numberـofـdaysـchecked = models.DurationField()
-    numberـofـdays_confirmed = models.DurationField()
-    numberـofـdays_interviews = models.DurationField()
+    daysـreceived = models.DurationField()
+    daysـchecked = models.DurationField()
+    days_confirmed = models.DurationField()
+    days_interviews = models.DurationField()
     time_spent_interview = models.DurationField()
 
 
