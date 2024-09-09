@@ -5,13 +5,13 @@ from .models import RecCondition, RecDate
 class DateSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecDate
-        fields = '__all__'
+        fields = ["recruitment_date", "daysـreceived", "daysـchecked",
+                  "days_confirmed", "days_interviews", "time_spent_interview"]
+
 
 class ConditionSerializer(serializers.ModelSerializer):
     rec_date = DateSerializer(read_only=True)
+
     class Meta:
         model = RecCondition
-        fields = '__all__'
-
-
-
+        fields = ['rec_date', 'recruiment_condition', "recruiment_position"]

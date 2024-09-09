@@ -1,10 +1,14 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CreateAndGet
+from .views import CreateAndGetCondition, CreateAndGetDate
 
 router = DefaultRouter()
-router.register("", CreateAndGet)
+router.register("", CreateAndGetCondition)
+router2 = DefaultRouter()
+router2.register("", CreateAndGetDate)
 
 urlpatterns = [
-    path("recruitment/", include(router.urls))
+    path("condition/", include(router.urls)),
+    path("date/", include(router2.urls)),
+
 ]

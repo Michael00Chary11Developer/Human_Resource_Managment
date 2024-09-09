@@ -4,6 +4,11 @@ from .serializers import ConditionSerializer, DateSerializer
 from rest_framework.viewsets import ModelViewSet
 
 
-class CreateAndGet(ModelViewSet):
-    queryset = RecCondition.objects.all()
+class CreateAndGetCondition(ModelViewSet):
+    queryset = RecCondition.objects.order_by('id').all()
     serializer_class = ConditionSerializer
+
+
+class CreateAndGetDate(ModelViewSet):
+    queryset = RecDate.objects.order_by('id').all()
+    serializer_class = DateSerializer
