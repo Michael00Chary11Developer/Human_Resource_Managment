@@ -7,11 +7,11 @@ class ConditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecCondition
         fields = ['daysـreceived', 'daysـchecked', 'days_confirmed',
-                  'days_interviews', 'time_spent_interview']
+                  'days_interviews', 'time_spent_interview','date_detail']
 
 
 class DateSerializer(serializers.ModelSerializer):
-    date_detail = ConditionSerializer
+    date_detail = ConditionSerializer(read_only=True)
 
     class Meta:
         model = RecDate

@@ -5,4 +5,5 @@ from rest_framework.viewsets import ModelViewSet
 
 
 class CreateAndGet(ModelViewSet):
-    pass
+    queryset = RecCondition.objects.all()
+    serializer_class = ConditionSerializer
