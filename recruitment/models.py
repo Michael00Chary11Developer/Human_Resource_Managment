@@ -21,5 +21,5 @@ class RecDate(models.Model):
     days_confirmed = models.DurationField()
     days_interviews = models.DurationField()
     time_spent_interview = models.DurationField()
-    recruitment_details = models.OneToOneField(
-        RecCondition, on_delete=models.CASCADE, related_name='date_detail')
+    rec_condition = models.OneToOneField(
+        RecCondition, on_delete=models.CASCADE, related_name='rec_date')
