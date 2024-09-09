@@ -4,4 +4,4 @@ from .models import  Personnal
 class PersonnalSerilizer(serializers.ModelSerializer):
     class Meta:
         model = Personnal
-        firlds = "__all__" 
+        fields = "__all__" 
