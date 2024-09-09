@@ -12,3 +12,5 @@ class CreateAndGetCondition(ModelViewSet):
 class CreateAndGetDate(ModelViewSet):
     queryset = RecDate.objects.order_by('id').all()
     serializer_class = DateSerializer
+    http_method_names = ['get', 'put', 'patch', 'head', 'options', 'trace', 'delete',]
+
