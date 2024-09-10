@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'home.apps.HomeConfig',
     'recruitment.apps.RecruitmentConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

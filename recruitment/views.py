@@ -5,5 +5,5 @@ from rest_framework.viewsets import ModelViewSet
 
 
 class RecruitmentViews(ModelViewSet):
-    queryset = Recruitment.objects.order_by('id').all()
+    queryset = Recruitment.objects.order_by('rec_id').all()
     serializer_class = RecruitmentSerializer
