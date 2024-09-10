@@ -32,3 +32,4 @@ class Recruitment(models.Model):
     time_spent_interview = models.DurationField()
     recruitment_condition = models.CharField(
         max_length=50, choices=condition_choices, default='Uncertain')
+    date_recruitment=models.DateField()  
