@@ -21,9 +21,16 @@ class Recruitment(models.Model):
         ("UX/UI Designer", "UX/UI designer"),
         ("Network Engineer", "network engineer"),
     ]
-    
+
     recruitment_possition = models.CharField(
         max_length=50, choices=possition_choices, default='Nothing')
+
+    """
+    get the resume
+    and see how many time spent for interviews
+    and date of recruiment
+    by models
+    """
 
     recieved_resume = models.PositiveIntegerField()
     checked_resume = models.PositiveIntegerField()
@@ -32,4 +39,4 @@ class Recruitment(models.Model):
     time_spent_interview = models.DurationField()
     recruitment_condition = models.CharField(
         max_length=50, choices=condition_choices, default='Uncertain')
-    date_recruitment=models.DateField()  
+    date_recruitment = models.DateField()
