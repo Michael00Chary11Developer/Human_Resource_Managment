@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from .models import Recruitment
+from .serializers import RecruitmentSerializer
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+
+class RecruitmentViews(ModelViewSet):
+    queryset = Recruitment.objects.order_by('id').all()
+    serializer_class = RecruitmentSerializer
