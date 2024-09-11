@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import timedelta
 
 
 class Recruitment(models.Model):
@@ -40,7 +41,17 @@ class Recruitment(models.Model):
     checked_resume = models.PositiveIntegerField()
     approved_resume = models.PositiveIntegerField()
     interviewed_resume = models.PositiveSmallIntegerField()
-    time_spent_interview = models.DurationField()
+    time_spent_every_interview = models.DurationField()
     recruitment_condition = models.CharField(
         max_length=50, choices=condition_choices, default='Uncertain')
     date_recruitment = models.DateField()
+
+    def __str__(self) -> str:
+        return f"date recruiment:{self.date_recruitment}\tcondition:{self.recruitment_condition}"
+
+    def interview_spent_time_calculate(self):
+        convertor_int = int(self.time_spent_every_interview.total_seconds())
+        total_time = self.interviewed_resume*convertor_int
+        convertor_delttime = timedelta(total_time)
+        convertor_delttime
+        return convertor_delttime
