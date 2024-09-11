@@ -30,6 +30,10 @@ class Recruitment(models.Model):
     and see how many time spent for interviews
     and date of recruiment
     by models
+    recieved_resume , checked_resume , approved_resume , interviewed_resume get positive integer
+    time_sepnt_interview is durationfield get timedelta object =>hours:minutes:secconds
+    recruiment_condition about condotion of interview reject or accept
+    date_recruiment is the date of the interview is datetefield and get object of datefield
     """
 
     recieved_resume = models.PositiveIntegerField()
