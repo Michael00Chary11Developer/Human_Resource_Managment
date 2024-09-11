@@ -13,5 +13,5 @@ router = DefaultRouter()
 router.register("", RecruitmentViews, basename='RecruitmentRouter')
 
 urlpatterns = [
-    path('views/', include(router.urls))
+    path('recruitment/', include(router.urls))
 ]
