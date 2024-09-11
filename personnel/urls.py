@@ -3,8 +3,8 @@ from. import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('', views.CreatePersonnelView)
+router.register('manage', views.PersonnelViewSet)
 
 urlpatterns = [
-    path('create/', include(router.urls))
+    path('', include(router.urls))
 ]
