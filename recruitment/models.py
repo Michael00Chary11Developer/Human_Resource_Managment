@@ -34,7 +34,7 @@ class Recruitment(models.Model):
     recieved_resume , checked_resume , approved_resume , interviewed_resume get positive integer
     time_sepnt_interview is durationfield get timedelta object =>hours:minutes:secconds
     recruiment_condition about condotion of interview reject or accept
-    date_recruiment is the date of the interview is datetefield and get object of datefield
+    date_recruiment is the date of the interview is datetefield and get object of datetime
     """
 
     recieved_resume = models.PositiveIntegerField()
@@ -51,7 +51,8 @@ class Recruitment(models.Model):
 
     def interview_spent_time_calculate(self) -> timedelta:
         convertor_int = int(self.duration_every_interview.total_seconds())
-        total_time = self.interviewed_resume*convertor_int
-        convertor_delttime = timedelta(total_time)
-        convertor_delttime
-        return convertor_delttime
+        total_seconds = self.interviewed_resume*convertor_int
+        return str(timedelta(seconds=total_seconds))
+	    
+        
+
