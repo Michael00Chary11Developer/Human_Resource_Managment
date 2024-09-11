@@ -9,17 +9,18 @@ class Personnel(models.Model):
     This model stores various details about the personnel including
     personal information, educational background, career records,
     and employment details. Each personnel has a unique identifier
-    generated automatically in the format '100-XXX'.
+    generated automatically in the format '100XXX'.
     """
+    
 
     def create_new_number_of_personnel():
+        
+            random_number = random.randint(1, 20)
+            costum_format = f"100{random_number:03d}"
 
-        random_number = random.randint(1, 1000)
-        costum_format = f"100{random_number:03d}"
+            if not Personnel.objects.filter(number_of_personnel=costum_format).exists():
 
-        if not Personnel.objects.filter(number_of_personnel=costum_format).exists():
-
-            return costum_format
+                return  costum_format
 
     number_of_personnel = models.CharField(
         max_length=100, 

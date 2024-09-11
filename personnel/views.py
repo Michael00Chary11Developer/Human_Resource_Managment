@@ -15,4 +15,8 @@ class PersonnelViewSet(ModelViewSet):
     
     queryset = Personnel.objects.all()
     serializer_class = PersonnelSerializer
-
+    
+    
+    def get_object(self):
+        personnel_number = self.kwargs.get('pk')
+        return Personnel.objects.get(number_of_personnel=personnel_number)
