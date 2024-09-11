@@ -6,6 +6,7 @@ which includes a method for selecting interview times and
 some fields for the model
 """
 
+
 class Recruitment(models.Model):
     """_summary_
     ID is the primary key. It fills automatically
@@ -17,18 +18,15 @@ class Recruitment(models.Model):
         ("Reject", "reject"),
         ("Uncertain", "uncertain"),
     ]
-    possition_choices = [
+    position_choices = [
         ("Nothing", "nothing"),
-        ("Front End Developer", 'Front end Developer'),
-        ("Back End Developer", "back end developer"),
-        ("Full Stack Developer", "full stack developer"),
-        ("DevOps Engineer", "devOps engineer"),
-        ("UX/UI Designer", "UX/UI designer"),
-        ("Network Engineer", "network engineer"),
+        ("Front End Developer", 'Front end Developer'.lower()),
+        ("Back End Developer", "back end developer".lower()),
+        ("Full Stack Developer", "full stack developer".lower()),
+        ("DevOps Engineer", "devOps engineer".lower()),
+        ("UX/UI Designer", "UX/UI designer".lower()),
+        ("Network Engineer", "network engineer".lower()),
     ]
-
-    recruitment_possition = models.CharField(
-        max_length=50, choices=possition_choices, default='Nothing')
 
     """
     Fields:
@@ -52,6 +50,9 @@ class Recruitment(models.Model):
     approved_resume = models.PositiveIntegerField()
     interviewed_resume = models.PositiveSmallIntegerField()
     duration_every_interview = models.DurationField()
+    recruitment_possition = models.CharField(
+        max_length=50, choices=position_choices, default='Nothing'
+    )
     recruitment_condition = models.CharField(
         max_length=50, choices=condition_choices, default='Uncertain')
     date_recruitment = models.DateField()
@@ -67,6 +68,3 @@ class Recruitment(models.Model):
         convertor_int = int(self.duration_every_interview.total_seconds())
         total_seconds = self.interviewed_resume*convertor_int
         return str(timedelta(seconds=total_seconds))
-	    
-        
-
