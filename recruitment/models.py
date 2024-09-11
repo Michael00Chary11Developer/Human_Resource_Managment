@@ -1,6 +1,10 @@
 from django.db import models
 from datetime import timedelta
-
+"""
+The usage model is defined, 
+which includes a method for selecting interview times and 
+some fields for the model
+"""
 
 class Recruitment(models.Model):
     """_summary_
@@ -27,14 +31,20 @@ class Recruitment(models.Model):
         max_length=50, choices=possition_choices, default='Nothing')
 
     """
-    get the resume
-    and see how many time spent for interviews
-    and date of recruiment
-    by models
-    recieved_resume , checked_resume , approved_resume , interviewed_resume get positive integer
-    time_sepnt_interview is durationfield get timedelta object =>hours:minutes:secconds
-    recruiment_condition about condotion of interview reject or accept
-    date_recruiment is the date of the interview is datetefield and get object of datetime
+    Fields:
+        rec_id (AutoField): The primary key for the model, automatically filled.
+        recruitment_possition (CharField): The position being recruited for, chosen from predefined options.
+        recieved_resume (PositiveIntegerField): Number of resumes received.
+        checked_resume (PositiveIntegerField): Number of resumes checked.
+        approved_resume (PositiveIntegerField): Number of resumes approved.
+        interviewed_resume (PositiveSmallIntegerField): Number of resumes that went through interviews.
+        duration_every_interview (DurationField): Duration of each interview, stored as a timedelta object.
+        recruitment_condition (CharField): The current condition of the recruitment, chosen from predefined options.
+        date_recruitment (DateField): The date of the recruitment.
+
+    Methods:
+        __str__(): Returns a human-readable string representation of the recruitment instance.
+        interview_spent_time_calculate(): Calculates the total time spent on interviews.
     """
 
     recieved_resume = models.PositiveIntegerField()
@@ -47,6 +57,10 @@ class Recruitment(models.Model):
     date_recruitment = models.DateField()
 
     def __str__(self) -> str:
+        """
+        Return a human-readable string representation of the Person object.
+        Readable for date_recruitment and recruitment_condition
+        """
         return f"date recruiment:{self.date_recruitment}\tcondition:{self.recruitment_condition}"
 
     def interview_spent_time_calculate(self) -> timedelta:

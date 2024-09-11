@@ -4,6 +4,9 @@ from .views import RecruitmentViews
 
 """
 router find Recruiment
+router create automatically create urls 
+use views for path
+include -> the urls that router create
 """
 
 router = DefaultRouter()
