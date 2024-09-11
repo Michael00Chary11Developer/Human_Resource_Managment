@@ -13,33 +13,19 @@ class Recruitment(models.Model):
     ID is the primary key. It fills automatically
     condition_choices and possition_choices must be chosen in recruitment_condition and recruitment_possition
     """
+
     rec_id = models.AutoField(primary_key=True)
-    condition_choices = [
-        ("Accept", "accepted"),
-        ("Reject", "reject"),
-        ("Uncertain", "uncertain"),
-    ]
-    position_choices = [
-        ("Nothing", "nothing"),
-        ("Front End Developer", 'front end developer'),
-        ("Back End Developer", "back end developer"),
-        ("Full Stack Developer", "full stack developer"),
-        ("DevOps Engineer", "devOps engineer"),
-        ("UX/UI Designer", "UX/UI designer"),
-        ("Network Engineer", "network engineer"),
-        ("Accountant", "accountant")
-    ]
 
     """
     Fields:
         rec_id (AutoField): The primary key for the model, automatically filled.
-        recruitment_possition (CharField): The position being recruited for, chosen from predefined options.
+        recruitment_possition (CharField): The position being recruited for
         recieved_resume (PositiveIntegerField): Number of resumes received.
         checked_resume (PositiveIntegerField): Number of resumes checked.
         approved_resume (PositiveIntegerField): Number of resumes approved.
         interviewed_resume (PositiveSmallIntegerField): Number of resumes that went through interviews.
         duration_every_interview (DurationField): Duration of each interview, stored as a timedelta object.
-        recruitment_condition (CharField): The current condition of the recruitment, chosen from predefined options.
+        recruitment_condition (CharField): The current condition of the recruitment
         date_recruitment (DateField): The date of the recruitment.
 
     Methods:
@@ -53,12 +39,10 @@ class Recruitment(models.Model):
     interviewed_resume = models.PositiveSmallIntegerField()
     duration_every_interview = models.DurationField()
     recruitment_possition = models.CharField(
-        max_length=50, choices=position_choices, default='Nothing'
-    )
+        max_length=50,  default='Nothing')
     recruitment_condition = models.CharField(
-        max_length=50, choices=condition_choices, default='Uncertain')
+        max_length=50, default='Uncertain')
     date_recruitment = models.DateField()
-
 
     def __str__(self) -> str:
         """
