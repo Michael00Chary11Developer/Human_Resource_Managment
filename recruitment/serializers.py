@@ -34,7 +34,7 @@ class RecruitmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recruitment
         fields = ['recieved_resume', 'checked_resume', 'approved_resume', 'interviewed_resume',
-                  'duration_every_interview', 'recruitment_condition', 'date_recruitment',
+                  'duration_every_interview','recruitment_possition', 'recruitment_condition', 'date_recruitment',
                   'time_spent']
         
 

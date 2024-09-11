@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from datetime import timedelta
 """
@@ -20,12 +21,13 @@ class Recruitment(models.Model):
     ]
     position_choices = [
         ("Nothing", "nothing"),
-        ("Front End Developer", 'Front end Developer'.lower()),
-        ("Back End Developer", "back end developer".lower()),
-        ("Full Stack Developer", "full stack developer".lower()),
-        ("DevOps Engineer", "devOps engineer".lower()),
-        ("UX/UI Designer", "UX/UI designer".lower()),
-        ("Network Engineer", "network engineer".lower()),
+        ("Front End Developer", 'front end developer'),
+        ("Back End Developer", "back end developer"),
+        ("Full Stack Developer", "full stack developer"),
+        ("DevOps Engineer", "devOps engineer"),
+        ("UX/UI Designer", "UX/UI designer"),
+        ("Network Engineer", "network engineer"),
+        ("Accountant", "accountant")
     ]
 
     """
@@ -56,6 +58,7 @@ class Recruitment(models.Model):
     recruitment_condition = models.CharField(
         max_length=50, choices=condition_choices, default='Uncertain')
     date_recruitment = models.DateField()
+
 
     def __str__(self) -> str:
         """
