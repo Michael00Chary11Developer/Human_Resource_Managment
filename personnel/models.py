@@ -14,13 +14,14 @@ class Personnel(models.Model):
     
 
     def create_new_number_of_personnel():
-        
-            random_number = random.randint(1, 1000)
-            costum_format = f"100{random_number:03d}"
 
-            if not Personnel.objects.filter(number_of_personnel=costum_format).exists():
+            while True:
+                random_number = random.randint(1, 999)
+                costum_format = f"100{random_number:03d}"
 
-                return  costum_format
+                if not Personnel.objects.filter(number_of_personnel=costum_format).exists():
+
+                    return  costum_format
 
     number_of_personnel = models.CharField(
         max_length=100, 
