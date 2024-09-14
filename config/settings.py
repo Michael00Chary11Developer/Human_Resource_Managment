@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'personnel.apps.PersonnelConfig',
     'rest_framework',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

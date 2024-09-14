@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 import random
 
 
@@ -11,35 +12,34 @@ class Personnel(models.Model):
     and employment details. Each personnel has a unique identifier
     generated automatically in the format '100XXX'.
     """
-    
 
     def create_new_number_of_personnel():
 
-            while True:
-                random_number = random.randint(1, 999)
-                costum_format = f"100{random_number:03d}"
+        while True:
+            random_number = random.randint(1, 999)
+            costum_format = f"100{random_number:03d}"
 
-                if not Personnel.objects.filter(number_of_personnel=costum_format).exists():
+            if not Personnel.objects.filter(number_of_personnel=costum_format).exists():
 
-                    return  costum_format
+                return costum_format
 
     number_of_personnel = models.CharField(
-        max_length=100, 
-        blank=True, 
-        editable=False, 
-        unique=True, 
+        max_length=6,
+        blank=True,
+        editable=False,
+        unique=True,
         default=create_new_number_of_personnel
-        )
+    )
 
     """
-    Unique personnel number generated in the format '100-XXX'.
+    Unique personnel number generated in the format '100XXX'.
     Automatically assigned upon creation.
     """
 
     # Personnel information
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=100)
+    phone_number = PhoneNumberField(blank=True, null=True)
     birth_date = models.DateField()
 
     # Educational records
