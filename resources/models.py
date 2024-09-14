@@ -1,6 +1,4 @@
 from django.db import models
-from random import randint
-from .utils import CreateUniqueCode
 
 
 class Resources(models.Model):

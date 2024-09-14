@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from .models import Resources
+from .serializers import ResourceSerializer
+from rest_framework.viewsets import ModelViewSet
 
-# Create your views here.
+
+class ResourceView(ModelViewSet):
+    queryset = Resources.objects.all()
+    serializer_class = ResourceSerializer
