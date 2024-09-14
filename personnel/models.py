@@ -28,7 +28,8 @@ class Personnel(models.Model):
         blank=True,
         editable=False,
         unique=True,
-        default=create_new_number_of_personnel
+        default=create_new_number_of_personnel,
+        primary_key=True
     )
 
     """
