@@ -1,0 +1,3 @@
+config/__pycache__
+personnel_env
+db.sqlite3
