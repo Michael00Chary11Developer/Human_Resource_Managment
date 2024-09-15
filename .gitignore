@@ -1,0 +1,10 @@
+#venv
+MasterVenv
+
+#binary format
+__pycache__
+* log
+* pyc
+
+#migrations
+migrations
