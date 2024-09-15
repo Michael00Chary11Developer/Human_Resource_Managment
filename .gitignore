@@ -1,3 +1,12 @@
-config/__pycache__
+#ignore venv
 salary_env
+#ignore db
 db.sqlite3
+#ignore migrations file
+salary/__pycache__
+salary/migrations
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd 
