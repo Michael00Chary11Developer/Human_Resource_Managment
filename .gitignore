@@ -9,7 +9,8 @@ personnel_env
 #ignore db
 db.sqlite3
 #ignore migrations file
-*/migrations/
+personnel/__pycache__
+personnel/migrations
 # Ignore Python bytecode files
 __pycache__/
 *.pyc
