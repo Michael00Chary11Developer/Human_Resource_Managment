@@ -1,10 +1,14 @@
-#venv
+#ignore venv
 MasterVenv
 
-#binary format
-__pycache__
-* log
-* pyc
+#ignore db
+db.sqlite3
 
-#migrations
-migrations
+#ignore migrations file
+*/migrations/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
