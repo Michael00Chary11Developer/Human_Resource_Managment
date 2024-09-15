@@ -1,14 +1,17 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CreateAndGetCondition, CreateAndGetDate
+from .views import RecruitmentViews
+
+"""
+router find Recruiment
+router create automatically create urls 
+use views for path
+include -> the urls that router create
+"""
 
 router = DefaultRouter()
-router.register("", CreateAndGetCondition)
-router2 = DefaultRouter()
-router2.register("", CreateAndGetDate)
+router.register("", RecruitmentViews, basename='RecruitmentRouter')
 
 urlpatterns = [
-    path("condition/", include(router.urls)),
-    path("date/", include(router2.urls)),
-
+    path('recruitment/', include(router.urls))
 ]

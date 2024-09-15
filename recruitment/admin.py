@@ -1,6 +1,9 @@
 from django.contrib import admin
-from .models import RecCondition,RecDate
+from .models import Recruitment
 
-# Register your models here.
-admin.site.register(RecCondition)
-admin.site.register(RecDate)
+"""
+resister Recruitment model
+for test in admin-panel
+"""
+
+admin.site.register(Recruitment)
