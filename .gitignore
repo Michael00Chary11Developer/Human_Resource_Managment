@@ -12,16 +12,10 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd#ignore venv
-MasterVenv
-#ignore db
-db.sqlite3
+
+
 #ignore migrations file
 salary/__pycache__
 salary/migrations
 personnel/__pycache__
 personnel/migrations
-# Ignore Python bytecode files
-__pycache__/
-*.pyc
-*.pyo
-*.pyd config/__pycache__
