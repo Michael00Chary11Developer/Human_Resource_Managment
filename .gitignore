@@ -11,7 +11,7 @@ db.sqlite3
 __pycache__/
 *.pyc
 *.pyo
-*.pyd#ignore venv
+*.pyd
 
 
 #ignore migrations file
