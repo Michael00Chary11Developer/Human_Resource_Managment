@@ -1,3 +1,13 @@
 config/__pycache__
 personnel_env
 db.sqlite3
+#ignore venv
+#ignore db
+db.sqlite3
+#ignore migrations file
+*/migrations/
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd 
