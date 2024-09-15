@@ -40,10 +40,9 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'home.apps.HomeConfig',
     'salary.apps.SalaryConfig',
-    'rest_framework',
     'personnel.apps.PersonnelConfig',
-    'rest_framework',
     'phonenumber_field',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

@@ -1,29 +1,14 @@
 #ignore venv
-salary_env
+MasterVenv
 #ignore db
 db.sqlite3
 #ignore migrations file
 salary/__pycache__
 salary/migrations
-# Ignore Python bytecode files
-__pycache__/
-*.pyc
-*.pyo
-*.pyd config/__pycache__
-
-
-
-
-
-#ignore venv
-personnel_env
-#ignore db
-db.sqlite3
-#ignore migrations file
 personnel/__pycache__
 personnel/migrations
 # Ignore Python bytecode files
 __pycache__/
 *.pyc
 *.pyo
-*.pyd 
+*.pyd config/__pycache__
