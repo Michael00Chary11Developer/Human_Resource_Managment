@@ -1,0 +1,3 @@
+config/__pycache__
+salary_env
+db.sqlite3
