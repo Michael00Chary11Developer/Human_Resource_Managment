@@ -40,6 +40,9 @@ class Recruitment(models.Model):
     duration_every_interview = models.DurationField()
     recruitment_possition = models.CharField(
         max_length=50,  default='Nothing')
+    recruiment_level_possition = models.CharField(
+        max_length=50, default='Nothing'
+    )
     recruitment_condition = models.CharField(
         max_length=50, default='Uncertain')
     date_recruitment = models.DateField()
