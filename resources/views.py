@@ -26,7 +26,7 @@ class ResourceView(ModelViewSet):
             return queryset
 
         resource_name = self.kwargs.get("resource_name")
-        if resource_name is not None:
+        if resource_name:
             queryset = Resources.objects.filter(
                 resource_name=resource_name
             )
