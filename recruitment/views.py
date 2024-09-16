@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Recruitment
-from .serializers import RecruitmentSerializer
+from .serializers import RecruitmentSerializer, RecruitmentDetailSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
 
@@ -23,7 +23,15 @@ class RecruitmentViews(ModelViewSet):
             if not queryset.exists():
                 raise NotFound("Not found recruiment_possition!!!")
             return queryset
-        
+
+        return super().get_queryset()
+
+
+class RecruitmentDetailViews(ModelViewSet):
+    queryset = Recruitment.objects.order_by('rec_id').all()
+    serializer_class = RecruitmentDetailSerializer
+
+    def get_queryset(self):
         recruitment_condition = self.kwargs.get("recruitment_condition")
         if recruitment_condition:
             queryset = Recruitment.objects.filter(
@@ -31,5 +39,5 @@ class RecruitmentViews(ModelViewSet):
             if not queryset.exists():
                 raise NotFound("Not Found recruitment_condition!!!")
             return queryset
-
+        
         return super().get_queryset()

@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import RecruitmentViews
+from .views import RecruitmentViews, RecruitmentDetailViews
 
 """
 router find Recruiment
@@ -15,7 +15,7 @@ router.register("", RecruitmentViews, basename='RecruitmentRouter')
 urlpatterns = [
     path('recruitment/', include(router.urls)),
     path('condition/<str:recruitment_condition>',
-         RecruitmentViews.as_view({"get": "list"})),
+         RecruitmentDetailViews.as_view({"get": "list"})),
     path('possition/<str:recruitment_possition>',
          RecruitmentViews.as_view({"get": "list"})),
 ]
