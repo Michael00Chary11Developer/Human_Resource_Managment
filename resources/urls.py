@@ -20,4 +20,8 @@ router.register('resource', ResourceView)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path("personel/<int:number_of_personnel>",
+         ResourceView.as_view({"get": "list"})),
+    path('resource_name/<str:resource_name>',
+         ResourceView.as_view({"get": "list"}))
 ]
