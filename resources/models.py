@@ -1,5 +1,6 @@
 from .utils import CreateUniqueCode
 from django.db import models
+from personnel.models import Personnel
 
 """
 Represents a resource in the system with various attributes.
@@ -15,11 +16,14 @@ Methods:
 
 """
 
+
 class Resources(models.Model):
 
+    number_of_personnel = models.OneToOneField(
+        Personnel, on_delete=models.CASCADE, related_name='number_of_personnel_ex')
     asset_code = models.CharField(
         max_length=8, editable=False, blank=False, primary_key=True)
-    asset_code = models.CharField(
+    resource_name = models.CharField(
         max_length=20, blank=False, unique=False, editable=True)
     resource_sort = models.CharField(max_length=20, blank=True)
     dateـofـallocation = models.DateField()
