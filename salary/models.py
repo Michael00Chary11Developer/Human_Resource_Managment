@@ -14,4 +14,4 @@ class Salary(models.Model):
     salary_start_date = (models.DateField())
     
     def __str__(self) :
-        return f"{self.personnel.number_of_personnel} - {self.personnel.firstname}" 
+        return f"{self.personnel.number_of_personnel} -  {self.personnel.firstname}" 
