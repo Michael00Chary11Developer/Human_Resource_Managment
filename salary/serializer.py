@@ -1,14 +1,11 @@
 from rest_framework import serializers
 from .models import Salary
-from personnel.models import Personnel
+from personnel.serializer import DynamicFieldsModelSerializer,PersonnelSerializer
 
 
-class SalarySerializer(serializers.ModelSerializer):
+class SalarySerializer(DynamicFieldsModelSerializer):
 
-    personnel = serializers.PrimaryKeyRelatedField(
-        queryset=Personnel.objects.all())
-    firstname = serializers.SerializerMethodField()
-    lastname = serializers.SerializerMethodField()
+    personnel = PersonnelSerializer(fields=['number_of_personnel','firstname','lastname','degree'])
 
     class Meta:
         model = Salary
@@ -21,11 +18,3 @@ class SalarySerializer(serializers.ModelSerializer):
                   'food_allowance',
                   'salary_start_date'
                   ]
-
-    def get_firstname(self, obj: Salary) -> str:
-
-        return obj.personnel.firstname
-
-    def get_lastname(self, obj: Salary) -> str:
-
-        return obj.personnel.lastname

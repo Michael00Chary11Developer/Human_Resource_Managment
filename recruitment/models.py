@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Iterable
 from django.db import models
 from datetime import timedelta
 """
@@ -58,3 +58,9 @@ class Recruitment(models.Model):
         convertor_int = int(self.duration_every_interview.total_seconds())
         total_seconds = self.interviewed_resume*convertor_int
         return str(timedelta(seconds=total_seconds))
+
+    def save(self, *arg, **kwargs):
+        list_of_recruimnet = ['Accept','accept']
+        if not list_of_recruimnet in self.recruitment_condition:
+            return self.date_recruitment
+        return super().save(*arg, **kwargs)

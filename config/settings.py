@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'resources.apps.ResourcesConfig',
     'salary.apps.SalaryConfig',
     'personnel.apps.PersonnelConfig',
+    'django_filters',
     'phonenumber_field',
     'rest_framework',
 ]
@@ -58,6 +59,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
 
 TEMPLATES = [
     {
