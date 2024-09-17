@@ -5,29 +5,16 @@ from personnel.serializer import DynamicFieldsModelSerializer,PersonnelSerialize
 
 class SalarySerializer(DynamicFieldsModelSerializer):
 
-    # personnel = serializers.PrimaryKeyRelatedField(
-    #     queryset=Personnel.objects.all())
-    # firstname = serializers.SerializerMethodField()
-    # lastname = serializers.SerializerMethodField()
-    personnel = PersonnelSerializer(fields=['','firstname','lastname','degree'])
+    personnel = PersonnelSerializer(fields=['number_of_personnel','firstname','lastname','degree'])
 
     class Meta:
         model = Salary
-        # fields = ['personnel',
-        #           'firstname',
-        #           'lastname',
-        #           'base_salary',
-        #           'housing_allowance',
-        #           'child_allowance',
-        #           'food_allowance',
-        #           'salary_start_date'
-        #           ]
-        fields = '__all__'
-
-    # def get_firstname(self, obj: Salary) -> str:
-
-    #     return obj.personnel.firstname
-
-    # def get_lastname(self, obj: Salary) -> str:
-
-    #     return obj.personnel.lastname
+        fields = ['personnel',
+                  'firstname',
+                  'lastname',
+                  'base_salary',
+                  'housing_allowance',
+                  'child_allowance',
+                  'food_allowance',
+                  'salary_start_date'
+                  ]
