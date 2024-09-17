@@ -59,8 +59,8 @@ class Recruitment(models.Model):
         total_seconds = self.interviewed_resume*convertor_int
         return str(timedelta(seconds=total_seconds))
 
-    def save(self, *arg, **kwargs):
-        list_of_recruimnet = ['Accept','accept']
-        if not list_of_recruimnet in self.recruitment_condition:
-            return self.date_recruitment
-        return super().save(*arg, **kwargs)
+    # def save(self, *arg, **kwargs):
+    #     list_of_recruimnet = ['Accept','accept']
+    #     if not list_of_recruimnet in self.recruitment_condition:
+    #         return self.date_recruitment
+    #     return super().save(*arg, **kwargs)

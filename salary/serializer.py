@@ -9,12 +9,4 @@ class SalarySerializer(DynamicFieldsModelSerializer):
 
     class Meta:
         model = Salary
-        fields = ['personnel',
-                  'firstname',
-                  'lastname',
-                  'base_salary',
-                  'housing_allowance',
-                  'child_allowance',
-                  'food_allowance',
-                  'salary_start_date'
-                  ]
+        fields = '__all__'

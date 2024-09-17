@@ -10,7 +10,7 @@ class SalaryViewSet(ModelViewSet):
     
     queryset = Salary.objects.all()
     serializer_class = SalarySerializer
-    filter_backends=[DjangoFilterBackend,filters.SearchFilter]
-    # filter_backends=[CustomSalaryFilter,]
-    search_fields=['base_salary']
-    filterset_fields=['base_salary']
+    # filter_backends=[DjangoFilterBackend,filters.SearchFilter]
+    # # filter_backends=[CustomSalaryFilter,]
+    # search_fields=['base_salary']
+    # filterset_fields=['base_salary']
