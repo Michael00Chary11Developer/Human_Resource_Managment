@@ -79,11 +79,6 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         recruitment_condition = data.get('recruitment_condition')
         date_recruiment = data.get('date_recruitment')
 
-        if recruitment_condition != "Accept" or "accept":
-            if date_recruiment != None:
-                raise serializers.ValidationError(
-                    'No conditions other than being accepted can have an employment date. Please leave it blank')
-
         if data.get("recruitment_condition") not in ["Accept", "accept"]:
             if data.get("date_recruitment") is not None:
                 raise serializers.ValidationError(
