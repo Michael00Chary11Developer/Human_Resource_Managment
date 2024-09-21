@@ -34,7 +34,7 @@ class RecruitmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recruitment
         fields = ['recieved_resume', 'checked_resume', 'approved_resume', 'interviewed_resume',
-                  'duration_every_interview', 'recruitment_possition', 'recruitment_condition', 'date_recruitment',
+                  'duration_every_interview', 'recruitment_possition', "recruiment_level_possition", 'recruitment_condition', 'date_recruitment',
                   'time_spent']
 
     def get_time_spent(self, obj: Recruitment) -> timedelta:
@@ -77,6 +77,12 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         approved_resume = data.get('approved_resume')
         interviewed_resume = data.get('interviewed_resume')
 
+        if data.get("recruitment_condition") != "Accept" or "accept":
+            if data.get("date_recruiment") != None:
+                raise serializers.ValidationError(
+                    'No conditions other than being accepted can have an employment date. Please leave it blank')
+                data['date_recruitment'] = None
+
         if recived_resume < checked_resume:
             raise serializers.ValidationError(
                 'Checked resume date cannot be bigger than received resume date')
@@ -94,12 +100,12 @@ class RecruitmentSerializer(serializers.ModelSerializer):
 
 class RecruitmentDetailSerializer(serializers.ModelSerializer):
     time_spent = serializers.SerializerMethodField()
-    
+
     class Meta:
         model = Recruitment
         fields = ['duration_every_interview', 'recruitment_possition', 'recruitment_condition', 'date_recruitment',
                   'time_spent']
-        
+
     def get_time_spent(self, obj: Recruitment) -> timedelta:
         """
         Calculate and return the total time spent on interviews.
