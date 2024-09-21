@@ -1,6 +1,7 @@
 from .utils import CreateUniqueCode
 from django.db import models
 from personnel.models import Personnel
+from core.models import BaseModelDate
 
 """
 Represents a resource in the system with various attributes.
@@ -17,7 +18,7 @@ Methods:
 """
 
 
-class Resources(models.Model):
+class Resources(BaseModelDate):
 
     number_of_personnel = models.OneToOneField(
         Personnel, on_delete=models.CASCADE, related_name='number_of_personnel_ex')
