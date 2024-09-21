@@ -1,6 +1,7 @@
 from typing import Any, Iterable
 from django.db import models
 from datetime import timedelta
+from uuid import uuid4
 """
 The usage model is defined, 
 which includes a method for selecting interview times and 
@@ -14,7 +15,7 @@ class Recruitment(models.Model):
     condition_choices and possition_choices must be chosen in recruitment_condition and recruitment_possition
     """
 
-    rec_id = models.AutoField(primary_key=True)
+    rec_id = models.UUIDField(primary_key=True, editable=False, default=uuid4)
 
     """
     Fields:
@@ -58,9 +59,3 @@ class Recruitment(models.Model):
         convertor_int = int(self.duration_every_interview.total_seconds())
         total_seconds = self.interviewed_resume*convertor_int
         return str(timedelta(seconds=total_seconds))
-
-    # def save(self, *arg, **kwargs):
-    #     list_of_recruimnet = ['Accept','accept']
-    #     if not list_of_recruimnet in self.recruitment_condition:
-    #         return self.date_recruitment
-    #     return super().save(*arg, **kwargs)
