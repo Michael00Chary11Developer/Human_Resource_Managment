@@ -45,7 +45,7 @@ class Recruitment(models.Model):
     )
     recruitment_condition = models.CharField(
         max_length=50, default='Uncertain')
-    date_recruitment = models.DateField(blank=True)
+    date_recruitment = models.DateField(blank=True, null=True)
 
     def __str__(self) -> str:
         """

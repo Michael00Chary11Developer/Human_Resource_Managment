@@ -76,12 +76,18 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         checked_resume = data.get("checked_resume")
         approved_resume = data.get('approved_resume')
         interviewed_resume = data.get('interviewed_resume')
+        recruitment_condition = data.get('recruitment_condition')
+        date_recruiment = data.get('date_recruitment')
 
-        if data.get("recruitment_condition") != "Accept" or "accept":
-            if data.get("date_recruiment") != None:
+        if recruitment_condition != "Accept" or "accept":
+            if date_recruiment != None:
                 raise serializers.ValidationError(
                     'No conditions other than being accepted can have an employment date. Please leave it blank')
-                data['date_recruitment'] = None
+
+        if data.get("recruitment_condition") not in ["Accept", "accept"]:
+            if data.get("date_recruitment") is not None:
+                raise serializers.ValidationError(
+                    'No conditions other than being accepted can have an employment date. Please leave it blank')
 
         if recived_resume < checked_resume:
             raise serializers.ValidationError(
