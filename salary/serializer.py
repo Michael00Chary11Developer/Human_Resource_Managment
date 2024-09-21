@@ -12,15 +12,17 @@ class PersonnelSerializer(serializers.ModelSerializer):
 
 
 class SalarySerializer(serializers.ModelSerializer):
-
+    
     # firstname = serializers.SerializerMethodField()
     # lastname = serializers.SerializerMethodField()
-    personnel = PersonnelSerializer()
+    personnel = serializers.PrimaryKeyRelatedField(queryset=Personnel.objects.all(), write_only=True) 
+    personnel_detail = PersonnelSerializer(source='personnel', read_only=True)
     class Meta:
         
         
         model = Salary
         fields = ['personnel',
+                  'personnel_detail',
                 #   'firstname',
                 #   'lastname',
                   'base_salary',
@@ -30,22 +32,16 @@ class SalarySerializer(serializers.ModelSerializer):
                   'salary_start_date',
                   ]
         
+    def validate(self, data):
+        personnel = data.get('personnel')
+
+        if Salary.objects.filter(personnel=personnel).exists():
+            raise serializers.ValidationError(f'A salary record for personnel {personnel} already exists.')
         
-        def create(self, validated_data):
-            personnel_data = validated_data.pop('personnel')
-            
-            personnel = Personnel.objects.get(number_of_personnel = personnel_data['number_of_personnel'])
-            
-            salary = Salary.objects.create(personnel=personnel, **validated_data)
-            
-            return salary
+        return data
         
         
-       
-        # def update(self, instance, validated_data):
-        #     personnel_data = validated_data.pop('personnel')
-            
-        #     personnel = Personnel.objects.get(number_of_personnel=personnel_data['number'])
+        
 
     # def get_firstname(self, obj: Salary) -> str:
 
