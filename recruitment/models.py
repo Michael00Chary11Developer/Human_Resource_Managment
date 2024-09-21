@@ -1,6 +1,7 @@
 from typing import Any, Iterable
 from django.db import models
 from datetime import timedelta
+from core.models import BaseModelDate
 from uuid import uuid4
 """
 The usage model is defined, 
@@ -9,17 +10,17 @@ some fields for the model
 """
 
 
-class Recruitment(models.Model):
+class Recruitment(BaseModelDate):
     """_summary_
     ID is the primary key. It fills automatically
     condition_choices and possition_choices must be chosen in recruitment_condition and recruitment_possition
     """
 
-    rec_id = models.UUIDField(primary_key=True, editable=False, default=uuid4)
+    recruiment_id = models.UUIDField(primary_key=True, editable=False, default=uuid4)
 
     """
     Fields:
-        rec_id (AutoField): The primary key for the model, automatically filled.
+        recruiment_id (AutoField): The primary key for the model, automatically filled.
         recruitment_possition (CharField): The position being recruited for
         recieved_resume (PositiveIntegerField): Number of resumes received.
         checked_resume (PositiveIntegerField): Number of resumes checked.

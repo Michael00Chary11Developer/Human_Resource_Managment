@@ -12,7 +12,7 @@ RecruitmentSerializer serialize the model of Recruiment
 
 
 class RecruitmentViews(ModelViewSet):
-    queryset = Recruitment.objects.order_by('rec_id').all()
+    queryset = Recruitment.objects.order_by('recruiment_id').all()
     serializer_class = RecruitmentSerializer
 
     def get_queryset(self):
@@ -28,7 +28,7 @@ class RecruitmentViews(ModelViewSet):
 
 
 class RecruitmentDetailViews(ModelViewSet):
-    queryset = Recruitment.objects.order_by('rec_id').all()
+    queryset = Recruitment.objects.order_by('recruiment_id').all()
     serializer_class = RecruitmentDetailSerializer
 
     def get_queryset(self):
