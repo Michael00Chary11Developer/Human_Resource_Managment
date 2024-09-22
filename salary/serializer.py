@@ -41,6 +41,9 @@ class SalarySerializer(serializers.ModelSerializer):
                   'update_at'
                   ]
         
+        read_only_fields = ['number_of_personnel', 'created_at', 'update_at', 'user_id']
+
+        
 
     def get_gross_salary(self, obj: Salary) -> Decimal:
         return calculate_gross_salary(
