@@ -33,9 +33,9 @@ class RecruitmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recruitment
-        fields = ['user_id','recruiment_id','created_at','update_at', 'recieved_resume', 'checked_resume', 'approved_resume', 'interviewed_resume',
+        fields = ['user_id', 'recruiment_id', 'recieved_resume', 'checked_resume', 'approved_resume', 'interviewed_resume',
                   'duration_every_interview', 'recruitment_possition', "recruiment_level_possition", 'recruitment_condition', 'date_recruitment',
-                  'time_spent']
+                  'created_at', 'update_at', 'time_spent']
 
     def get_time_spent(self, obj: Recruitment) -> timedelta:
         """
@@ -84,8 +84,8 @@ class RecruitmentSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError(
                     'No conditions other than being accepted can have an employment date. Please leave it blank')
         elif date_recruiment is None:
-                raise serializers.ValidationError(
-                    'condition of Accept or accept must have date_recruiment')        
+            raise serializers.ValidationError(
+                'condition of Accept or accept must have date_recruiment')
 
         if recived_resume < checked_resume:
             raise serializers.ValidationError(

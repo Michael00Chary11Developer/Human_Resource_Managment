@@ -29,5 +29,6 @@ class ResourceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Resources
-        fields = ['user_id', 'number_of_personnel', 'number_of_personnel_ex', 'created_at', 'update_at',
-                  'asset_code', 'resource_name', 'resource_sort', 'dateـofـallocation']
+        fields = ['user_id', 'number_of_personnel', 'number_of_personnel_ex',
+                  'asset_code', 'resource_name', 'resource_sort', 'dateـofـallocation',
+                  'created_at', 'update_at']
