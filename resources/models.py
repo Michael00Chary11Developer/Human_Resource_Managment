@@ -20,7 +20,7 @@ Methods:
 
 class Resources(BaseModelDate):
 
-    number_of_personnel = models.ForeignKey(
+    personnel_number = models.OneToOneField(
         Personnel, related_name='number_of_personnel_ex', on_delete=models.CASCADE)
     asset_code = models.CharField(
         max_length=8, editable=False, blank=False, primary_key=True)
@@ -29,10 +29,10 @@ class Resources(BaseModelDate):
     resource_sort = models.CharField(max_length=20, blank=True)
     dateـofـallocation = models.DateField()
 
+    def __str__(self) -> str:
+        return f'{self.resource_name}\t{self.resource_sort}\t{self.dateـofـallocation}'
+
     def save(self, *args, **kwargs):
         if not self.asset_code:
             self.asset_code = CreateUniqueCode.generate_unique_code(Resources)
         super().save(*args, **kwargs)
-
-    def __str__(self) -> str:
-        return f'{self.resource_name}\t{self.resource_sort}\t{self.dateـofـallocation}'

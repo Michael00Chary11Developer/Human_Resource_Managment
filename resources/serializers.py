@@ -20,7 +20,7 @@ class PersonnelSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Personnel
-        fields = '__all__'
+        fields = ['number_of_personnel', 'firstname', 'lastname']
 
 
 class ResourceSerializer(serializers.ModelSerializer):
@@ -29,6 +29,6 @@ class ResourceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Resources
-        fields = ['user_id', 'number_of_personnel', 'number_of_personnel_ex',
+        fields = ['user_id', 'personnel_number', 'number_of_personnel_ex',
                   'asset_code', 'resource_name', 'resource_sort', 'dateـofـallocation',
                   'created_at', 'update_at']
