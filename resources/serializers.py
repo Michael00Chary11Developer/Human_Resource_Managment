@@ -1,5 +1,6 @@
 from .models import Resources
 from rest_framework import serializers
+from personnel.models import Personnel
 
 """
 serializr class that serialize mean convert json to python object python object to json
@@ -14,8 +15,19 @@ serializr class that serialize mean convert json to python object python object 
         Resource and say which model must be serialize         
 """
 
+
+class PersonnelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Personnel
+        fields = '__all__'
+
+
 class ResourceSerializer(serializers.ModelSerializer):
+
+    number_of_personnel_ex = PersonnelSerializer(read_only=True)
 
     class Meta:
         model = Resources
-        fields = ['user_id','number_of_personnel','created_at','update_at','asset_code','resource_name','resource_sort','dateـofـallocation']
+        fields = ['user_id', 'number_of_personnel', 'number_of_personnel_ex', 'created_at', 'update_at',
+                  'asset_code', 'resource_name', 'resource_sort', 'dateـofـallocation']
