@@ -1,8 +1,8 @@
 from django.db import models
 from personnel.models import Personnel
+from core.models import BaseModelDate
 
-
-class Salary(models.Model):
+class Salary(BaseModelDate):
     
     
     personnel = models.OneToOneField(Personnel, on_delete=models.CASCADE, related_name='sallaries', primary_key= True)

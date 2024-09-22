@@ -15,6 +15,7 @@ class PersonnelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Personnel
         fields = [
+            'user_id',
             'number_of_personnel',
             'firstname',
             'lastname',
@@ -25,7 +26,9 @@ class PersonnelSerializer(serializers.ModelSerializer):
             'career_records',
             'position',
             'level_for_position',
-            'date_of_employment'
+            'date_of_employment',
+            'created_at',
+            'update_at'
         ]
         read_only_fields = ['number_of_personnel']
 

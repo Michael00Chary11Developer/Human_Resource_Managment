@@ -27,7 +27,8 @@ class SalarySerializer(serializers.ModelSerializer):
         
         
         model = Salary
-        fields = ['personnel',
+        fields = ['user_id',
+                  'personnel',
                   'personnel_detail',
                   'base_salary',
                   'housing_allowance',
@@ -35,7 +36,9 @@ class SalarySerializer(serializers.ModelSerializer):
                   'food_allowance',
                   'salary_start_date',
                   'gross_salary',
-                  "net_salary"
+                  "net_salary",
+                  'created_at',
+                  'update_at'
                   ]
         
 

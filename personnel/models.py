@@ -1,9 +1,10 @@
+import random
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-import random
+from core.models import BaseModelDate
 
 
-class Personnel(models.Model):
+class Personnel(BaseModelDate):
     """
     A model representing personnel information.
 
