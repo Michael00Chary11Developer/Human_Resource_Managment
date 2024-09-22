@@ -5,9 +5,12 @@ from rest_framework.request import Request
 from django.shortcuts import render
 from .models import Personnel
 from .serializer import PersonnelSerializer
+from django.contrib.auth.models import User
+from core.views import BaseModelViewSet
 
 
-class PersonnelViewSet(ModelViewSet):
+
+class PersonnelViewSet(BaseModelViewSet):
 
     """
     A viewset for viewing and editing Personnel instances.
@@ -24,6 +27,7 @@ class PersonnelViewSet(ModelViewSet):
     #         return Personnel.objects.get(number_of_personnel=personnel_number)
     #     except Personnel.DoesNotExist:
     #         raise NotFound('Personnel not found')
+    
 
     def get_queryset(self):
         """

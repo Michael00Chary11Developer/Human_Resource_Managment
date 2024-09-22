@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Personnel
-from datetime import datetime
+from django.utils import timezone
+
+
 
 
 class PersonnelSerializer(serializers.ModelSerializer):
@@ -28,14 +30,19 @@ class PersonnelSerializer(serializers.ModelSerializer):
             'level_for_position',
             'date_of_employment',
             'created_at',
-            'update_at'
+            'update_at',
         ]
-        read_only_fields = ['number_of_personnel']
-
+        read_only_fields = ['number_of_personnel', 'created_at', 'update_at', 'user_id']
+   
+        
+    
         """
         Include all fields from the Personnel model in the serialized output.
         """
-
+    
+        
+   
+    
     def validate(self, data):
         """
         Validate the input data for the PersonnelSerializer.
@@ -57,7 +64,7 @@ class PersonnelSerializer(serializers.ModelSerializer):
 
         birth_date = data.get('birth_date')
         date_of_employment = data.get('date_of_employment')
-        today = datetime.now().date()
+        today = timezone.now().date()
 
         if birth_date > today:
             raise serializers.ValidationError(
