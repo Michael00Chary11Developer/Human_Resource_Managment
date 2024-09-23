@@ -4,17 +4,16 @@ from django.contrib.auth.models import User
 
 
 class BaseModelViewSet(viewsets.ModelViewSet):
-    
+
     """
         Base viewset to handle user_id assignment on create.
     """
 
     def perform_create(self, serializer):
-        
         """
             Override to add the user_id to the instance.
         """
-        
+
         if self.request.user.is_authenticated:
             serializer.save(user_id=self.request.user)
         else:
