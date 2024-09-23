@@ -16,7 +16,8 @@ class Recruitment(BaseModelDate):
     condition_choices and possition_choices must be chosen in recruitment_condition and recruitment_possition
     """
 
-    recruiment_id = models.UUIDField(primary_key=True, editable=False, default=uuid4)
+    recruiment_id = models.UUIDField(
+        primary_key=True, editable=False, default=uuid4)
 
     """
     Fields:
@@ -40,13 +41,9 @@ class Recruitment(BaseModelDate):
     approved_resume = models.PositiveIntegerField()
     interviewed_resume = models.PositiveSmallIntegerField()
     duration_every_interview = models.DurationField()
-    recruitment_possition = models.CharField(
-        max_length=50,  default='Nothing')
-    recruiment_level_possition = models.CharField(
-        max_length=50, default='Nothing'
-    )
-    recruitment_condition = models.CharField(
-        max_length=50, default='Uncertain')
+    recruitment_possition = models.CharField(max_length=50)
+    recruiment_level_possition = models.CharField(max_length=50)
+    recruitment_condition = models.CharField(max_length=50)
     date_recruitment = models.DateField(blank=True, null=True)
 
     def __str__(self) -> str:

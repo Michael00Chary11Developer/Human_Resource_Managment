@@ -20,7 +20,7 @@ Methods:
 
 class Resources(BaseModelDate):
 
-    personnel_number = models.OneToOneField(
+    number_of_personnel = models.OneToOneField(
         Personnel, related_name='number_of_personnel_ex', on_delete=models.CASCADE, primary_key=True)
     asset_code = models.CharField(
         max_length=8, editable=False, blank=False)

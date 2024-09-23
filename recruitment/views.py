@@ -40,5 +40,5 @@ class RecruitmentDetailViews(ModelViewSet):
             if not queryset.exists():
                 raise NotFound("Not Found recruitment_condition!!!")
             return queryset
-        
+
         return super().get_queryset()

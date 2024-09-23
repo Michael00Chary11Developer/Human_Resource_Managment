@@ -28,22 +28,25 @@ class PersonnelDetailSerializer(serializers.ModelSerializer):
 
 class ResourceSerializer(serializers.ModelSerializer):
 
+    user = serializers.PrimaryKeyRelatedField(source="user_id", read_only=True)
+    
+    number_of_personnel = serializers.PrimaryKeyRelatedField(
+        queryset=Personnel.objects.all(), write_only=True)
+    
     personnel_detail = PersonnelDetailSerializer(
-        source="personnel_number", read_only=True)
+        source="number_of_personnel", read_only=True)
 
     class Meta:
         model = Resources
-        fields = ['user_id',
-                  'personnel_number',
+        fields = ['user',
+                  'number_of_personnel',
                   'personnel_detail',
                   'asset_code',
-                  'personnel_number',
                   'resource_name',
                   'resource_sort',
                   'dateـofـallocation',
                   'created_at',
                   'update_at']
-        read_only_fields = ['user_id']
 
     def validate(self, data: Resources):
         today = timezone.now().date()
