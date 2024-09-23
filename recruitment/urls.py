@@ -10,10 +10,10 @@ include -> the urls that router create
 """
 
 router = DefaultRouter()
-router.register("", RecruitmentViews, basename='RecruitmentRouter')
+router.register("manage", RecruitmentViews, basename='RecruitmentRouter')
 
 urlpatterns = [
-    path('recruitment/', include(router.urls)),
+    path('', include(router.urls)),
     path('condition/<str:recruitment_condition>',
          RecruitmentDetailViews.as_view({"get": "list"})),
     path('possition/<str:recruitment_possition>',

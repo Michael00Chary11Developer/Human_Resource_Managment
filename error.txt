@@ -1,3 +1,0 @@
-ERRORS:
-recruitment.RecruimentConditionDetails.recruiment_condition: (fields.E005) 'choices' must be a mapping of actual values to human readable names or an iterable containing (actual value, human readable name) tuples.
-recruitment.RecruimentConditionDetails.recruiment_position: (fields.E005) 'choices' must be a mapping of actual values to human readable names or an iterable containing (actual value, human readable name) tuples.

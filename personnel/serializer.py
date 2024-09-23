@@ -13,6 +13,7 @@ class PersonnelSerializer(serializers.ModelSerializer):
     and JSON representations, allowing for easy input and output of personnel
     data through API endpoints.
     """
+    
 
     class Meta:
         model = Personnel

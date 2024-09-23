@@ -11,6 +11,4 @@ urlpatterns = [
          views.PersonnelViewSet.as_view({'get': 'list'})),
     path('level/<str:level_for_position>/',
          views.PersonnelViewSet.as_view({'get': 'list'})),
-
-
 ]

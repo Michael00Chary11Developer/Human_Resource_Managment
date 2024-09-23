@@ -15,7 +15,7 @@ urls:
 
 
 router = DefaultRouter()
-router.register('resource', ResourceView)
+router.register('manage', ResourceView)
 
 
 urlpatterns = [
