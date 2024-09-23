@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Recruitment
 from datetime import timedelta
+from django.utils import timezone
+from dateutil.relativedelta import relativedelta
 
 """
 Serializer for the Recruitment model.
@@ -79,6 +81,11 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         interviewed_resume = data.get('interviewed_resume')
         recruitment_condition = data.get('recruitment_condition')
         date_recruiment = data.get('date_recruitment')
+        now_plus_one_year = timezone.now().date()
+
+        if date_recruiment > now_plus_one_year:
+            raise serializers.ValidationError(
+                "data_recruiment can be in future but not more than one year!")
 
         if recruitment_condition not in ["Accept", "accept"]:
             if date_recruiment is not None:
