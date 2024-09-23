@@ -37,6 +37,8 @@ class RecruitmentSerializer(serializers.ModelSerializer):
                   'duration_every_interview', 'recruitment_possition', "recruiment_level_possition", 'recruitment_condition', 'date_recruitment',
                   'created_at', 'update_at', 'time_spent']
 
+        read_only_fields = ['user_id']
+
     def get_time_spent(self, obj: Recruitment) -> timedelta:
         """
         Calculate and return the total time spent on interviews.

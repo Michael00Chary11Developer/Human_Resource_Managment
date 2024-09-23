@@ -3,9 +3,10 @@ from .models import Resources
 from .serializers import ResourceSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
+from core.views import BaseModelViewSet
 
 
-class ResourceView(ModelViewSet):
+class ResourceView(BaseModelViewSet):
     """
     A viewset for viewing and editing Personnel instances.
     """

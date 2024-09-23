@@ -3,6 +3,7 @@ from .models import Recruitment
 from .serializers import RecruitmentSerializer, RecruitmentDetailSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
+from core.views import BaseModelViewSet
 
 """
 by viewset handle crud 
@@ -11,7 +12,7 @@ RecruitmentSerializer serialize the model of Recruiment
 """
 
 
-class RecruitmentViews(ModelViewSet):
+class RecruitmentViews(BaseModelViewSet):
     queryset = Recruitment.objects.order_by('recruiment_id').all()
     serializer_class = RecruitmentSerializer
 

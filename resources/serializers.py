@@ -43,6 +43,7 @@ class ResourceSerializer(serializers.ModelSerializer):
                   'dateـofـallocation',
                   'created_at',
                   'update_at']
+        read_only_fields = ['user_id']
 
     def validate(self, data: Resources):
         today = timezone.now().date()
@@ -50,4 +51,4 @@ class ResourceSerializer(serializers.ModelSerializer):
         if date_time_allocation > today:
             raise serializers.ValidationError(
                 "The data of aalocation cannot be in future!")
-        return data    
+        return data
