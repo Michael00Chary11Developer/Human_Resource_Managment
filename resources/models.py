@@ -21,12 +21,12 @@ Methods:
 class Resources(BaseModelDate):
 
     personnel_number = models.OneToOneField(
-        Personnel, related_name='number_of_personnel_ex', on_delete=models.CASCADE)
+        Personnel, related_name='number_of_personnel_ex', on_delete=models.CASCADE, primary_key=True)
     asset_code = models.CharField(
-        max_length=8, editable=False, blank=False, primary_key=True)
+        max_length=8, editable=False, blank=False)
     resource_name = models.CharField(
         max_length=20, blank=False, unique=False, editable=True)
-    resource_sort = models.CharField(max_length=20, blank=True)
+    resource_sort = models.CharField(max_length=20, blank=False, editable=True)
     dateـofـallocation = models.DateField()
 
     def __str__(self) -> str:

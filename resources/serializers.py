@@ -1,6 +1,7 @@
 from .models import Resources
 from rest_framework import serializers
 from personnel.models import Personnel
+from django.utils import timezone
 
 """
 serializr class that serialize mean convert json to python object python object to json
@@ -16,33 +17,37 @@ serializr class that serialize mean convert json to python object python object 
 """
 
 
-class PersonnelSerializer(serializers.ModelSerializer):
+class PersonnelDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Personnel
-        fields = ['number_of_personnel', 'firstname', 'lastname']
+        fields = ['number_of_personnel',
+                  'firstname',
+                  'lastname']
 
 
 class ResourceSerializer(serializers.ModelSerializer):
 
-    personnel = serializers.PrimaryKeyRelatedField(queryset=Personnel.objects.all(), write_only=True) 
-    personnel_detail = PersonnelSerializer(
-        read_only=True, source='personnel_number')
+    personnel_detail = PersonnelDetailSerializer(
+        source="personnel_number", read_only=True)
 
     class Meta:
         model = Resources
-        fields = ['user_id','personnel' ,'personnel_number', 'personnel_detail',
-                  'asset_code', 'resource_name', 'resource_sort', 'dateـofـallocation',
-                  'created_at', 'update_at']
+        fields = ['user_id',
+                  'personnel_number',
+                  'personnel_detail',
+                  'asset_code',
+                  'personnel_number',
+                  'resource_name',
+                  'resource_sort',
+                  'dateـofـallocation',
+                  'created_at',
+                  'update_at']
 
-    def validate(self, data):
-        personnel = data.get('personnel')
-
-        if self.instance:
-            if self.instance.personnel == personnel:
-                return data
-
-        if Resources.objects.filter(personnel=personnel).exists():
-            raise serializers.ValidationError(f'A Resource record for personnel {personnel} already exists.')
-
-        return data
+    def validate(self, data: Resources):
+        today = timezone.now().date()
+        date_time_allocation = data.get("dateـofـallocation")
+        if date_time_allocation > today:
+            raise serializers.ValidationError(
+                "The data of aalocation cannot be in future!")
+        return data    
