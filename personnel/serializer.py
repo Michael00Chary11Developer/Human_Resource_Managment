@@ -11,8 +11,6 @@ class PersonnelSerializer(serializers.ModelSerializer):
     and JSON representations, allowing for easy input and output of personnel
     data through API endpoints.
     """
-    child_allowance = serializers.DecimalField(
-        source='salaries.child_allowance', read_only=True)
 
     class Meta:
         model = Personnel
@@ -29,7 +27,6 @@ class PersonnelSerializer(serializers.ModelSerializer):
             'position',
             'level_for_position',
             'marital_status',
-            'child_allowance',
             'date_of_employment',
             'created_at',
             'update_at',
@@ -64,6 +61,20 @@ class PersonnelSerializer(serializers.ModelSerializer):
         date_of_employment = data.get('date_of_employment')
         today = timezone.now().date()
 
+        marital_status = data.get('marital_status')
+        have_child = data.get('have_child')
+        number_of_child = data.get('number_of_child')
+
+        if marital_status not in ['married', 'Married']:
+            if have_child is not None and number_of_child is not None:
+                raise serializers.ValidationError(
+                    "unmarrid person cannot have child!")
+        else:
+            if have_child is False:
+                if number_of_child is not None:
+                    raise serializers.ValidationError(
+                        "No child can not have any number of child fill it blank")
+
         if birth_date > today:
             raise serializers.ValidationError(
                 'Birth date cannot be in the future.')
@@ -75,10 +86,5 @@ class PersonnelSerializer(serializers.ModelSerializer):
         if date_of_employment > today:
             raise serializers.ValidationError(
                 'Date of employment cannot be in the future.')
-
-        child_allowance = data.get('child_allowance', 0)
-        if data.get('marital_status') not in ['married', 'Married'] and child_allowance > 0:
-            raise serializers.ValidationError(
-                "Single personnel cannot have child allowance.")
 
         return data
