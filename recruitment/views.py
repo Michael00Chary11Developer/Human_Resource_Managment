@@ -4,6 +4,7 @@ from .serializers import RecruitmentSerializer, RecruitmentDetailSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
 from core.views import BaseModelViewSet
+from drf_spectacular.utils import extend_schema
 
 """
 by viewset handle crud 
@@ -12,6 +13,14 @@ RecruitmentSerializer serialize the model of Recruiment
 """
 
 
+@extend_schema(
+    summary="Retrieve or update recruitment data",
+    request=RecruitmentSerializer,
+    responses={
+        200: RecruitmentSerializer(many=True),
+        404: "Not found recruitment position",
+    }
+)
 class RecruitmentViews(BaseModelViewSet):
     queryset = Recruitment.objects.order_by('recruiment_id').all()
     serializer_class = RecruitmentSerializer
@@ -28,6 +37,14 @@ class RecruitmentViews(BaseModelViewSet):
         return super().get_queryset()
 
 
+@extend_schema(
+    summary="Retrieve or update recruitment detail data",
+    request=RecruitmentDetailSerializer,
+    responses={
+        200: RecruitmentDetailSerializer(many=True),
+        404: "Not found recruitment condition",
+    }
+)
 class RecruitmentDetailViews(ModelViewSet):
     queryset = Recruitment.objects.order_by('recruiment_id').all()
     serializer_class = RecruitmentDetailSerializer

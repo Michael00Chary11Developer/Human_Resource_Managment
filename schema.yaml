@@ -1,0 +1,1644 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /personnel/level/{level_for_position}/:
+    get:
+      operationId: personnel_level_list
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: level_for_position
+        schema:
+          type: string
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - personnel
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPersonnelList'
+          description: ''
+  /personnel/manage/:
+    get:
+      operationId: personnel_manage_list
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - personnel
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPersonnelList'
+          description: ''
+    post:
+      operationId: personnel_manage_create
+      description: A viewset for viewing and editing Personnel instances.
+      tags:
+      - personnel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Personnel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Personnel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Personnel'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personnel'
+          description: ''
+  /personnel/manage/{number_of_personnel}/:
+    get:
+      operationId: personnel_manage_retrieve
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: number_of_personnel
+        schema:
+          type: string
+        description: A unique value identifying this personnel.
+        required: true
+      tags:
+      - personnel
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personnel'
+          description: ''
+    put:
+      operationId: personnel_manage_update
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: number_of_personnel
+        schema:
+          type: string
+        description: A unique value identifying this personnel.
+        required: true
+      tags:
+      - personnel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Personnel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Personnel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Personnel'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personnel'
+          description: ''
+    patch:
+      operationId: personnel_manage_partial_update
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: number_of_personnel
+        schema:
+          type: string
+        description: A unique value identifying this personnel.
+        required: true
+      tags:
+      - personnel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonnel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonnel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPersonnel'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Personnel'
+          description: ''
+    delete:
+      operationId: personnel_manage_destroy
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: number_of_personnel
+        schema:
+          type: string
+        description: A unique value identifying this personnel.
+        required: true
+      tags:
+      - personnel
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /personnel/position/{position}/:
+    get:
+      operationId: personnel_position_list
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: path
+        name: position
+        schema:
+          type: string
+        required: true
+      tags:
+      - personnel
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPersonnelList'
+          description: ''
+  /recruitment/condition/{recruitment_condition}:
+    get:
+      operationId: recruitment_condition_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: path
+        name: recruitment_condition
+        schema:
+          type: string
+        required: true
+      tags:
+      - recruitment
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRecruitmentDetailList'
+          description: ''
+  /recruitment/manage/:
+    get:
+      operationId: recruitment_manage_list
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - recruitment
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRecruitmentList'
+          description: ''
+    post:
+      operationId: recruitment_manage_create
+      description: Base viewset to handle user_id assignment on create.
+      tags:
+      - recruitment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recruitment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Recruitment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Recruitment'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recruitment'
+          description: ''
+  /recruitment/manage/{recruiment_id}/:
+    get:
+      operationId: recruitment_manage_retrieve
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - in: path
+        name: recruiment_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this recruitment.
+        required: true
+      tags:
+      - recruitment
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recruitment'
+          description: ''
+    put:
+      operationId: recruitment_manage_update
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - in: path
+        name: recruiment_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this recruitment.
+        required: true
+      tags:
+      - recruitment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recruitment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Recruitment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Recruitment'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recruitment'
+          description: ''
+    patch:
+      operationId: recruitment_manage_partial_update
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - in: path
+        name: recruiment_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this recruitment.
+        required: true
+      tags:
+      - recruitment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRecruitment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedRecruitment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedRecruitment'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recruitment'
+          description: ''
+    delete:
+      operationId: recruitment_manage_destroy
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - in: path
+        name: recruiment_id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this recruitment.
+        required: true
+      tags:
+      - recruitment
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /recruitment/possition/{recruitment_possition}:
+    get:
+      operationId: recruitment_possition_list
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: path
+        name: recruitment_possition
+        schema:
+          type: string
+        required: true
+      tags:
+      - recruitment
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedRecruitmentList'
+          description: ''
+  /resources/manage/:
+    get:
+      operationId: resources_manage_list
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - resources
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResourceList'
+          description: ''
+    post:
+      operationId: resources_manage_create
+      description: A viewset for viewing and editing Personnel instances.
+      tags:
+      - resources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Resource'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Resource'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+          description: ''
+  /resources/manage/{number_of_personnel}/:
+    get:
+      operationId: resources_manage_retrieve
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: number_of_personnel
+        schema:
+          type: string
+        description: A unique value identifying this resources.
+        required: true
+      tags:
+      - resources
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+          description: ''
+    put:
+      operationId: resources_manage_update
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: number_of_personnel
+        schema:
+          type: string
+        description: A unique value identifying this resources.
+        required: true
+      tags:
+      - resources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Resource'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Resource'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+          description: ''
+    patch:
+      operationId: resources_manage_partial_update
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: number_of_personnel
+        schema:
+          type: string
+        description: A unique value identifying this resources.
+        required: true
+      tags:
+      - resources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedResource'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedResource'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedResource'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Resource'
+          description: ''
+    delete:
+      operationId: resources_manage_destroy
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: number_of_personnel
+        schema:
+          type: string
+        description: A unique value identifying this resources.
+        required: true
+      tags:
+      - resources
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /resources/personel/{number_of_personnel}:
+    get:
+      operationId: resources_personel_list
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - in: path
+        name: number_of_personnel
+        schema:
+          type: integer
+        required: true
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - resources
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResourceList'
+          description: ''
+  /resources/resource_name/{resource_name}:
+    get:
+      operationId: resources_resource_name_list
+      description: A viewset for viewing and editing Personnel instances.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - in: path
+        name: resource_name
+        schema:
+          type: string
+        required: true
+      tags:
+      - resources
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResourceList'
+          description: ''
+  /salary/manage/:
+    get:
+      operationId: salary_manage_list
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - salary
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSalaryList'
+          description: ''
+    post:
+      operationId: salary_manage_create
+      description: Base viewset to handle user_id assignment on create.
+      tags:
+      - salary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Salary'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Salary'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Salary'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Salary'
+          description: ''
+  /salary/manage/{personnel}/:
+    get:
+      operationId: salary_manage_retrieve
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - in: path
+        name: personnel
+        schema:
+          type: string
+        description: A unique value identifying this salary.
+        required: true
+      tags:
+      - salary
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Salary'
+          description: ''
+    put:
+      operationId: salary_manage_update
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - in: path
+        name: personnel
+        schema:
+          type: string
+        description: A unique value identifying this salary.
+        required: true
+      tags:
+      - salary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Salary'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Salary'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Salary'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Salary'
+          description: ''
+    patch:
+      operationId: salary_manage_partial_update
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - in: path
+        name: personnel
+        schema:
+          type: string
+        description: A unique value identifying this salary.
+        required: true
+      tags:
+      - salary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSalary'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSalary'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSalary'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Salary'
+          description: ''
+    delete:
+      operationId: salary_manage_destroy
+      description: Base viewset to handle user_id assignment on create.
+      parameters:
+      - in: path
+        name: personnel
+        schema:
+          type: string
+        description: A unique value identifying this salary.
+        required: true
+      tags:
+      - salary
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    PaginatedPersonnelList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Personnel'
+    PaginatedRecruitmentDetailList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecruitmentDetail'
+    PaginatedRecruitmentList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recruitment'
+    PaginatedResourceList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+    PaginatedSalaryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Salary'
+    PatchedPersonnel:
+      type: object
+      description: |-
+        Serializer for the Personnel model.
+
+        This serializer handles the conversion between Personnel model instances
+        and JSON representations, allowing for easy input and output of personnel
+        data through API endpoints.
+      properties:
+        user_id:
+          type: integer
+          readOnly: true
+        number_of_personnel:
+          type: string
+          readOnly: true
+        firstname:
+          type: string
+          maxLength: 100
+        lastname:
+          type: string
+          maxLength: 100
+        phone_number:
+          type: string
+          nullable: true
+          maxLength: 128
+        birth_date:
+          type: string
+          format: date
+        degree:
+          type: string
+          maxLength: 100
+        field_of_study:
+          type: string
+          maxLength: 100
+        career_records:
+          type: string
+        position:
+          type: string
+          maxLength: 100
+        level_for_position:
+          type: string
+          maxLength: 100
+        date_of_employment:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+    PatchedRecruitment:
+      type: object
+      description: |-
+        Serializer class for the Recruitment model.
+
+        This class serializes all fields of the Recruitment model except
+        for the `id` field, which is hidden and not included in the
+        serialized output.
+
+        Attributes:
+            time_spent (SerializerMethodField): Calculates and returns
+                                                the total time spent on
+                                                interviews.
+      properties:
+        user_id:
+          type: integer
+          readOnly: true
+        recruiment_id:
+          type: string
+          format: uuid
+          readOnly: true
+        recieved_resume:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        checked_resume:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        approved_resume:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        interviewed_resume:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        duration_every_interview:
+          type: string
+        recruitment_possition:
+          type: string
+          maxLength: 50
+        recruiment_level_possition:
+          type: string
+          maxLength: 50
+        recruitment_condition:
+          type: string
+          maxLength: 50
+        date_recruitment:
+          type: string
+          format: date
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        time_spent:
+          type: string
+          format: duration
+          description: |-
+            Calculate and return the total time spent on interviews.
+
+            Args:
+                obj (Recruitment): The instance of the Recruitment model.
+
+            Returns:
+                timedelta: The total time spent on interviews.
+          readOnly: true
+    PatchedResource:
+      type: object
+      properties:
+        user:
+          type: integer
+          readOnly: true
+        number_of_personnel:
+          type: string
+          writeOnly: true
+        personnel_detail:
+          allOf:
+          - $ref: '#/components/schemas/PersonnelDetail'
+          readOnly: true
+        asset_code:
+          type: string
+          readOnly: true
+        resource_name:
+          type: string
+          maxLength: 20
+        resource_sort:
+          type: string
+          maxLength: 20
+        dateـofـallocation:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+    PatchedSalary:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          readOnly: true
+        personnel:
+          type: string
+          writeOnly: true
+        personnel_detail:
+          allOf:
+          - $ref: '#/components/schemas/Personnel'
+          readOnly: true
+        base_salary:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        housing_allowance:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        child_allowance:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        food_allowance:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        salary_start_date:
+          type: string
+          format: date
+        gross_salary:
+          type: number
+          format: double
+          readOnly: true
+        net_salary:
+          type: number
+          format: double
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+    Personnel:
+      type: object
+      description: |-
+        Serializer for the Personnel model.
+
+        This serializer handles the conversion between Personnel model instances
+        and JSON representations, allowing for easy input and output of personnel
+        data through API endpoints.
+      properties:
+        user_id:
+          type: integer
+          readOnly: true
+        number_of_personnel:
+          type: string
+          readOnly: true
+        firstname:
+          type: string
+          maxLength: 100
+        lastname:
+          type: string
+          maxLength: 100
+        phone_number:
+          type: string
+          nullable: true
+          maxLength: 128
+        birth_date:
+          type: string
+          format: date
+        degree:
+          type: string
+          maxLength: 100
+        field_of_study:
+          type: string
+          maxLength: 100
+        career_records:
+          type: string
+        position:
+          type: string
+          maxLength: 100
+        level_for_position:
+          type: string
+          maxLength: 100
+        date_of_employment:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+      - birth_date
+      - career_records
+      - created_at
+      - date_of_employment
+      - degree
+      - field_of_study
+      - firstname
+      - lastname
+      - level_for_position
+      - number_of_personnel
+      - position
+      - update_at
+      - user_id
+    PersonnelDetail:
+      type: object
+      properties:
+        number_of_personnel:
+          type: string
+          readOnly: true
+        firstname:
+          type: string
+          maxLength: 100
+        lastname:
+          type: string
+          maxLength: 100
+      required:
+      - firstname
+      - lastname
+      - number_of_personnel
+    Recruitment:
+      type: object
+      description: |-
+        Serializer class for the Recruitment model.
+
+        This class serializes all fields of the Recruitment model except
+        for the `id` field, which is hidden and not included in the
+        serialized output.
+
+        Attributes:
+            time_spent (SerializerMethodField): Calculates and returns
+                                                the total time spent on
+                                                interviews.
+      properties:
+        user_id:
+          type: integer
+          readOnly: true
+        recruiment_id:
+          type: string
+          format: uuid
+          readOnly: true
+        recieved_resume:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        checked_resume:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        approved_resume:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        interviewed_resume:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        duration_every_interview:
+          type: string
+        recruitment_possition:
+          type: string
+          maxLength: 50
+        recruiment_level_possition:
+          type: string
+          maxLength: 50
+        recruitment_condition:
+          type: string
+          maxLength: 50
+        date_recruitment:
+          type: string
+          format: date
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        time_spent:
+          type: string
+          format: duration
+          description: |-
+            Calculate and return the total time spent on interviews.
+
+            Args:
+                obj (Recruitment): The instance of the Recruitment model.
+
+            Returns:
+                timedelta: The total time spent on interviews.
+          readOnly: true
+      required:
+      - approved_resume
+      - checked_resume
+      - created_at
+      - duration_every_interview
+      - interviewed_resume
+      - recieved_resume
+      - recruiment_id
+      - recruiment_level_possition
+      - recruitment_condition
+      - recruitment_possition
+      - time_spent
+      - update_at
+      - user_id
+    RecruitmentDetail:
+      type: object
+      properties:
+        duration_every_interview:
+          type: string
+        recruitment_possition:
+          type: string
+          maxLength: 50
+        recruitment_condition:
+          type: string
+          maxLength: 50
+        date_recruitment:
+          type: string
+          format: date
+          nullable: true
+        time_spent:
+          type: string
+          format: duration
+          description: |-
+            Calculate and return the total time spent on interviews.
+
+            Args:
+                obj (Recruitment): The instance of the Recruitment model.
+
+            Returns:
+                timedelta: The total time spent on interviews.
+          readOnly: true
+      required:
+      - duration_every_interview
+      - recruitment_condition
+      - recruitment_possition
+      - time_spent
+    Resource:
+      type: object
+      properties:
+        user:
+          type: integer
+          readOnly: true
+        number_of_personnel:
+          type: string
+          writeOnly: true
+        personnel_detail:
+          allOf:
+          - $ref: '#/components/schemas/PersonnelDetail'
+          readOnly: true
+        asset_code:
+          type: string
+          readOnly: true
+        resource_name:
+          type: string
+          maxLength: 20
+        resource_sort:
+          type: string
+          maxLength: 20
+        dateـofـallocation:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+      - asset_code
+      - created_at
+      - dateـofـallocation
+      - number_of_personnel
+      - personnel_detail
+      - resource_name
+      - resource_sort
+      - update_at
+      - user
+    Salary:
+      type: object
+      properties:
+        user_id:
+          type: integer
+          readOnly: true
+        personnel:
+          type: string
+          writeOnly: true
+        personnel_detail:
+          allOf:
+          - $ref: '#/components/schemas/Personnel'
+          readOnly: true
+        base_salary:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        housing_allowance:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        child_allowance:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        food_allowance:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        salary_start_date:
+          type: string
+          format: date
+        gross_salary:
+          type: number
+          format: double
+          readOnly: true
+        net_salary:
+          type: number
+          format: double
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        update_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+      required:
+      - base_salary
+      - child_allowance
+      - created_at
+      - food_allowance
+      - gross_salary
+      - housing_allowance
+      - net_salary
+      - personnel
+      - personnel_detail
+      - salary_start_date
+      - update_at
+      - user_id
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

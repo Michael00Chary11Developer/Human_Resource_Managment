@@ -33,3 +33,5 @@ class BaseModelViewSet(viewsets.ModelViewSet):
         if limit is not None and offset is not None:
             self.pagination_class=LimitOffsetPagination
             self.pagination_class.default_limit=int(limit)
+            
+        return query_set
