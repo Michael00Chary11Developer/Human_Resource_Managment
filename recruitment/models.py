@@ -12,8 +12,7 @@ some fields for the model
 
 class Recruitment(BaseModelDate):
     """_summary_
-    ID is the primary key. It fills automatically
-    condition_choices and possition_choices must be chosen in recruitment_condition and recruitment_possition
+    recruiment_id is the primary key. It fills automatically
     """
 
     recruiment_id = models.UUIDField(
@@ -21,24 +20,25 @@ class Recruitment(BaseModelDate):
 
     """
     Fields:
-        recruiment_id (AutoField): The primary key for the model, automatically filled.
-        recruitment_possition (CharField): The position being recruited for
-        recieved_resume (PositiveIntegerField): Number of resumes received.
-        checked_resume (PositiveIntegerField): Number of resumes checked.
-        approved_resume (PositiveIntegerField): Number of resumes approved.
+        recruiment_id (UUIDField): The primary key for the model, automatically filled by uuid4.
+        recieved_resume (PositiveSmallIntegerField): Number of resumes received.
+        checked_resume (PositiveSmallIntegerField): Number of resumes checked.
+        approved_resume (PositiveSmallIntegerField): Number of resumes approved.
         interviewed_resume (PositiveSmallIntegerField): Number of resumes that went through interviews.
         duration_every_interview (DurationField): Duration of each interview, stored as a timedelta object.
+        recruitment_possition (CharField): The position being recruited for
+        recruiment_level_possition(CharField): The level of possition example intern or junior or senior
         recruitment_condition (CharField): The current condition of the recruitment
-        date_recruitment (DateField): The date of the recruitment.
+        date_recruitment (DateField): The date of the recruitment if condition of is not in [accept,Accept] date filled cannot be filled
 
     Methods:
         __str__(): Returns a human-readable string representation of the recruitment instance.
         interview_spent_time_calculate(): Calculates the total time spent on interviews.
     """
 
-    recieved_resume = models.PositiveIntegerField()
-    checked_resume = models.PositiveIntegerField()
-    approved_resume = models.PositiveIntegerField()
+    recieved_resume = models.PositiveSmallIntegerField()
+    checked_resume = models.PositiveSmallIntegerField()
+    approved_resume = models.PositiveSmallIntegerField()
     interviewed_resume = models.PositiveSmallIntegerField()
     duration_every_interview = models.DurationField()
     recruitment_possition = models.CharField(max_length=50)
@@ -51,7 +51,7 @@ class Recruitment(BaseModelDate):
         Return a human-readable string representation of the Person object.
         Readable for date_recruitment and recruitment_condition
         """
-        return f"date recruiment:{self.date_recruitment}\tcondition:{self.recruitment_condition}"
+        return f"{self.date_recruitment}\t{self.recruitment_condition}"
 
     def interview_spent_time_calculate(self) -> timedelta:
         convertor_int = int(self.duration_every_interview.total_seconds())

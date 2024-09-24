@@ -8,8 +8,7 @@ from dateutil.relativedelta import relativedelta
 Serializer for the Recruitment model.
 
 This serializer handles the serialization and validation of
-Recruitment instances. The id field is excluded from the
-serialized output.
+Recruitment instances.
 
 Attributes:
     time_spent (timedelta): A calculated field that represents the
@@ -36,9 +35,11 @@ class RecruitmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recruitment
-        fields = ['user_id', 'recruiment_id', 'recieved_resume', 'checked_resume', 'approved_resume', 'interviewed_resume',
-                  'duration_every_interview', 'recruitment_possition', "recruiment_level_possition", 'recruitment_condition', 'date_recruitment',
-                  'created_at', 'update_at', 'time_spent']
+        fields = ['user_id', 'recruiment_id', 'recieved_resume',
+                  'checked_resume', 'approved_resume', 'interviewed_resume',
+                  'duration_every_interview', 'recruitment_possition',
+                  'recruiment_level_possition', 'recruitment_condition',
+                  'date_recruitment', 'created_at', 'update_at', 'time_spent']
 
     def get_time_spent(self, obj: Recruitment) -> timedelta:
         """
