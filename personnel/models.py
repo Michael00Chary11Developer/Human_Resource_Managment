@@ -41,6 +41,8 @@ class Personnel(BaseModelDate):
     # Personnel information
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
+    religion = models.CharField(max_length=20)
+    sort_of_religion = models.CharField(max_length=20)
     phone_number = PhoneNumberField(blank=True, null=True, unique=True)
     birth_date = models.DateField()
 
@@ -54,6 +56,8 @@ class Personnel(BaseModelDate):
     # Position and level
     position = models.CharField(max_length=100)
     level_for_position = models.CharField(max_length=100)
+
+    marital_status = models.CharField(max_length=10)
 
     # Date when the personnel was employed.
     date_of_employment = models.DateField()

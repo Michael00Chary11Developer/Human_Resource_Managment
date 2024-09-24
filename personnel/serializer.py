@@ -3,8 +3,6 @@ from .models import Personnel
 from django.utils import timezone
 
 
-
-
 class PersonnelSerializer(serializers.ModelSerializer):
     """
     Serializer for the Personnel model.
@@ -13,7 +11,8 @@ class PersonnelSerializer(serializers.ModelSerializer):
     and JSON representations, allowing for easy input and output of personnel
     data through API endpoints.
     """
-    
+    child_allowance = serializers.DecimalField(
+        source='salaries.child_allowance', read_only=True)
 
     class Meta:
         model = Personnel
@@ -29,21 +28,19 @@ class PersonnelSerializer(serializers.ModelSerializer):
             'career_records',
             'position',
             'level_for_position',
+            'marital_status',
+            'child_allowance',
             'date_of_employment',
             'created_at',
             'update_at',
         ]
-        read_only_fields = ['number_of_personnel', 'created_at', 'update_at', 'user_id']
-   
-        
-    
+        read_only_fields = ['number_of_personnel',
+                            'created_at', 'update_at', 'user_id']
+
         """
         Include all fields from the Personnel model in the serialized output.
         """
-    
-        
-   
-    
+
     def validate(self, data):
         """
         Validate the input data for the PersonnelSerializer.
@@ -78,5 +75,10 @@ class PersonnelSerializer(serializers.ModelSerializer):
         if date_of_employment > today:
             raise serializers.ValidationError(
                 'Date of employment cannot be in the future.')
+
+        child_allowance = data.get('child_allowance', 0)
+        if data.get('marital_status') not in ['married', 'Married'] and child_allowance > 0:
+            raise serializers.ValidationError(
+                "Single personnel cannot have child allowance.")
 
         return data
