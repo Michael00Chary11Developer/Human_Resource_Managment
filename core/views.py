@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.exceptions import NotFound
 from django.contrib.auth.models import User
+from rest_framework.pagination import LimitOffsetPagination
 
 
 class BaseModelViewSet(viewsets.ModelViewSet):
@@ -22,3 +23,13 @@ class BaseModelViewSet(viewsets.ModelViewSet):
                 serializer.save(user_id=default_user)
             except User.DoesNotExist:
                 raise NotFound('Default user not found.')
+
+    def get_queryset(self):
+        query_set = super().get_queryset()
+        
+        limit=self.request.query_params.get('limit')
+        offset=self.request.query_params.get("offset")
+        
+        if limit is not None and offset is not None:
+            self.pagination_class=LimitOffsetPagination
+            self.pagination_class.default_limit=int(limit)

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django_filters',
     'phonenumber_field',
     'rest_framework',
+    'drf_spectacular'
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,9 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'config.urls'
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 5,
 }
 
 TEMPLATES = [
@@ -134,5 +137,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
