@@ -69,15 +69,18 @@ class PersonnelSerializer(serializers.ModelSerializer):
         have_child = data.get('have_child')
         number_of_child = data.get('number_of_child')
 
-        if marital_status not in ['married', 'Married']:
-            if have_child is not None and number_of_child is not None:
+        if marital_status.lower() != 'married':
+            if have_child is not False or number_of_child  not in [None, 0]:
                 raise serializers.ValidationError(
-                    "unmarrid person cannot have child!")
+                    "Unmarried person cannot have children!")
+
         else:
-            if have_child is False:
-                if number_of_child is not None:
-                    raise serializers.ValidationError(
-                        "No child can not have any number of child fill it blank")
+            if have_child is False and number_of_child not in [None, 0]:
+                raise serializers.ValidationError(
+                    "If no child, 'number_of_child' must be blank.")
+            elif have_child is True and number_of_child in [0, None]:
+                raise serializers.ValidationError(
+                    "you must have enter number of child!")
 
         if birth_date > today:
             raise serializers.ValidationError(
