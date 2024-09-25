@@ -2,8 +2,10 @@ from django.contrib import admin
 from .models import Recruitment
 
 """
-resister Recruitment model
-for test in admin-panel
+register Recruiment to admin 
+we can test it by admin panel
+in urls search
+admin/
 """
 
 admin.site.register(Recruitment)

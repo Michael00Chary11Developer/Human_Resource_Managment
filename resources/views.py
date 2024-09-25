@@ -5,23 +5,39 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.exceptions import NotFound
 from core.views import BaseModelViewSet
 
+"""
+ResourceView handles CRUD operations and filtering of resource data.
+
+- ResourceView:
+    - Handles general resource data, including listing, creating, updating, and deleting resources.
+    - Filters resource data by 'asset_code' or 'resource_name' if provided in the URL.
+    - Uses ResourceSerializer for serializing the resource data.
+"""
+
 
 class ResourceView(BaseModelViewSet):
     """
-    A viewset for viewing and editing Personnel instances.
+    Viewset for managing general resource data.
+
+    - Handles listing, creating, updating, and deleting Resource records.
+    - If 'asset_code' or 'resource_name' is provided in the URL, filters the queryset by those fields.
+    - Uses 'ResourceSerializer' to serialize the Resource model.
     """
-    """
-    queryset= get all object Resource
-    
-    """
+
     queryset = Resources.objects.all()
     serializer_class = ResourceSerializer
 
     def get_queryset(self):
-        personel_number = self.kwargs.get("number_of_personnel")
-        if personel_number:
+        """
+        Overrides the default 'get_queryset' method to filter resources by 'asset_code' or 'resource_name'.
+
+        Raises:
+            NotFound: If the provided 'asset_code' or 'resource_name' does not exist in the database.
+        """
+        asset_code = self.kwargs.get("asset_code")
+        if asset_code:
             queryset = Resources.objects.filter(
-                number_of_personnel=personel_number)
+                asset_code=asset_code)
             if not queryset.exists():
                 raise NotFound("Not Found!!")
             return queryset

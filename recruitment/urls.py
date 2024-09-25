@@ -27,10 +27,10 @@ urlpatterns = [
     path('', include(router.urls)),
 
     # Custom path to filter by recruitment condition
-    path('condition/<str:recruitment_condition>',
+    path('condition/<str:recruitment_condition>/',
          RecruitmentDetailViews.as_view({"get": "list"})),
 
     # Custom path to filter by recruitment position
-    path('possition/<str:recruitment_possition>',
+    path('possition/<str:recruitment_possition>/',
          RecruitmentViews.as_view({"get": "list"})),
 ]

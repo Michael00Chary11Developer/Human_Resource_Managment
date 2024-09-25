@@ -16,7 +16,7 @@ RecruitmentViews and RecruitmentDetailViews handle CRUD operations and filtering
 - RecruitmentDetailViews: Handles detailed recruitment data.
     - Filters by 'recruitment_condition' if provided in the URL.
 
-Both views use viewsets to manage the data, leveraging DRF's ModelViewSet for automatic handling of CRUD operations.
+viewset manage data by crud,get,put,push,get,get by pk,delete,patch
 """
 
 

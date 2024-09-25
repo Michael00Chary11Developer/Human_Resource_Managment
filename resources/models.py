@@ -33,6 +33,10 @@ class Resources(BaseModelDate):
         return f'{self.resource_name}\t{self.resource_sort}\t{self.dateـofـallocation}'
 
     def save(self, *args, **kwargs):
+        """
+        Overrides the default save method to generate a unique asset_code
+        if it is not provided during resource creation.
+        """
         if not self.asset_code:
             self.asset_code = CreateUniqueCode.generate_unique_code(Resources)
         super().save(*args, **kwargs)
