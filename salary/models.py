@@ -5,7 +5,7 @@ from core.models import BaseModelDate
 class Salary(BaseModelDate):
     
     
-    personnel = models.OneToOneField(Personnel, on_delete=models.CASCADE, related_name='sallaries', primary_key= True)
+    personnel = models.OneToOneField(Personnel, on_delete=models.CASCADE, related_name='salaries', primary_key= True)
 
     base_salary = models.DecimalField(max_digits=10, decimal_places=2)
     housing_allowance = models.DecimalField(max_digits=10, decimal_places=2)

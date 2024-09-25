@@ -41,7 +41,12 @@ class Personnel(BaseModelDate):
     # Personnel information
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
-    phone_number = PhoneNumberField(blank=True, null=True)
+    marital_status = models.CharField(max_length=10)
+    have_child = models.BooleanField()
+    number_of_child = models.PositiveSmallIntegerField(null=True, blank=True)
+    religion = models.CharField(max_length=20)
+    sort_of_religion = models.CharField(max_length=20)
+    phone_number = PhoneNumberField(blank=True, null=True, unique=True)
     birth_date = models.DateField()
 
     # Educational records
