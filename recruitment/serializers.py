@@ -13,6 +13,7 @@ Recruitment instances.
 Attributes:
     time_spent (timedelta): A calculated field that represents the
                             total time spent on interviews.
+                            calculate by method in model->interview_spent_time_calculate
 """
 
 
@@ -21,10 +22,10 @@ class RecruitmentSerializer(serializers.ModelSerializer):
     Serializer class for the Recruitment model.
 
     This class serializes all fields of the Recruitment model except
-    for the `id` field, which is hidden and not included in the
-    serialized output.
+    for the 'recruiment_id' field
 
     Attributes:
+        user_id=readonly is primarykey of models of core and set on model recruiment 
         time_spent (SerializerMethodField): Calculates and returns
                                             the total time spent on
                                             interviews.
@@ -34,6 +35,13 @@ class RecruitmentSerializer(serializers.ModelSerializer):
     time_spent = serializers.SerializerMethodField()
 
     class Meta:
+        """
+        Meta class for configuring the Recruitment serializer.
+
+        Attributes:
+            model (Model): Specifies the model to be serialized.
+            fields (list): List of model fields to be included in the serialization.
+        """
         model = Recruitment
         fields = ['user_id', 'recruiment_id', 'recieved_resume',
                   'checked_resume', 'approved_resume', 'interviewed_resume',
@@ -50,6 +58,7 @@ class RecruitmentSerializer(serializers.ModelSerializer):
 
         Returns:
             timedelta: The total time spent on interviews.
+            and we convert timedelta to str format
         """
         return obj.interview_spent_time_calculate()
 
@@ -58,17 +67,21 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         Validate the dates related to the recruitment process to ensure
         logical consistency.
 
-        The following conditions are checked:
-        - The date when the resume was checked should not be after
+
+        About validate date_recruiment and condition of recruiment:
+            Someone whose recruitment_condition is rejected or non_accepted should not have date_recruiment
+
+        The following conditions are checked abour number of resume:
+        - The date when the resume was checked should not be more
           the date when it was received.
-        - The date when the resume was approved should not be after
+        - The date when the resume was approved should not be more
           the date when it was checked.
-        - The date when the resume was interviewed should not be after
+        - The date when the resume was interviewed should not be more
           the date when it was approved.
 
         Args:
             data (dict): A dictionary containing the data to validate.
-
+                Someone whose recruitment_condition status is rejected or accepted should not have employment history
         Returns:
             dict: The validated data.
 
@@ -82,9 +95,9 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         interviewed_resume = data.get('interviewed_resume')
         recruitment_condition = data.get('recruitment_condition')
         date_recruiment = data.get('date_recruitment')
-        now_plus_one_year = timezone.now().date()
+        now = timezone.now().date()
 
-        if date_recruiment > now_plus_one_year:
+        if date_recruiment > now:
             raise serializers.ValidationError(
                 "data_recruiment can be in future but not more than one year!")
 
@@ -112,9 +125,22 @@ class RecruitmentSerializer(serializers.ModelSerializer):
 
 
 class RecruitmentDetailSerializer(serializers.ModelSerializer):
+    """
+    It about detail,
+    it all alike above class except,
+    just show four fields
+    """
+
     time_spent = serializers.SerializerMethodField()
 
     class Meta:
+        """
+        Meta class for configuring the Recruitment serializer.
+
+        Attributes:
+            model (Model): Specifies the model to be serialized.
+            fields (list): List of model fields to be included in the serialization.
+        """
         model = Recruitment
         fields = ['duration_every_interview', 'recruitment_possition', 'recruitment_condition', 'date_recruitment',
                   'time_spent']

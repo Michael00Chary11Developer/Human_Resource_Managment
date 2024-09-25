@@ -12,7 +12,7 @@ some fields for the model
 
 class Recruitment(BaseModelDate):
     """_summary_
-    recruiment_id is the primary key. It fills automatically
+    recruiment_id is the primary key. It fills automatically in format of uuid4
     """
 
     recruiment_id = models.UUIDField(
@@ -54,6 +54,13 @@ class Recruitment(BaseModelDate):
         return f"{self.date_recruitment}\t{self.recruitment_condition}"
 
     def interview_spent_time_calculate(self) -> timedelta:
+        """
+        Return str format of time delta
+        1.get duration_every_interview and convert it to seconds set to convertor_int
+        2.the number of interviews_resume multiply convertor_int
+        3. and convert it to str format for show in time format
+        4.return this result
+        """
         convertor_int = int(self.duration_every_interview.total_seconds())
         total_seconds = self.interviewed_resume*convertor_int
         return str(timedelta(seconds=total_seconds))
