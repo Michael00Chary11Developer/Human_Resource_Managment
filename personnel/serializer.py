@@ -3,8 +3,6 @@ from .models import Personnel
 from django.utils import timezone
 
 
-
-
 class PersonnelSerializer(serializers.ModelSerializer):
     """
     Serializer for the Personnel model.
@@ -13,7 +11,6 @@ class PersonnelSerializer(serializers.ModelSerializer):
     and JSON representations, allowing for easy input and output of personnel
     data through API endpoints.
     """
-    
 
     class Meta:
         model = Personnel
@@ -22,6 +19,11 @@ class PersonnelSerializer(serializers.ModelSerializer):
             'number_of_personnel',
             'firstname',
             'lastname',
+            'marital_status',
+            'have_child',
+            'number_of_child',
+            'religion',
+            'sort_of_religion',
             'phone_number',
             'birth_date',
             'degree',
@@ -33,17 +35,13 @@ class PersonnelSerializer(serializers.ModelSerializer):
             'created_at',
             'update_at',
         ]
-        read_only_fields = ['number_of_personnel', 'created_at', 'update_at', 'user_id']
-   
-        
-    
+        read_only_fields = ['number_of_personnel',
+                            'created_at', 'update_at', 'user_id']
+
         """
         Include all fields from the Personnel model in the serialized output.
         """
-    
-        
-   
-    
+
     def validate(self, data):
         """
         Validate the input data for the PersonnelSerializer.
@@ -66,6 +64,20 @@ class PersonnelSerializer(serializers.ModelSerializer):
         birth_date = data.get('birth_date')
         date_of_employment = data.get('date_of_employment')
         today = timezone.now().date()
+
+        marital_status = data.get('marital_status')
+        have_child = data.get('have_child')
+        number_of_child = data.get('number_of_child')
+
+        if marital_status not in ['married', 'Married']:
+            if have_child is not None and number_of_child is not None:
+                raise serializers.ValidationError(
+                    "unmarrid person cannot have child!")
+        else:
+            if have_child is False:
+                if number_of_child is not None:
+                    raise serializers.ValidationError(
+                        "No child can not have any number of child fill it blank")
 
         if birth_date > today:
             raise serializers.ValidationError(

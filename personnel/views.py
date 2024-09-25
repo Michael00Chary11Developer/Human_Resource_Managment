@@ -18,16 +18,6 @@ class PersonnelViewSet(BaseModelViewSet):
     queryset = Personnel.objects.all()
     serializer_class = PersonnelSerializer
 
-    # def get_object(self):
-    #     """
-    #     Retrieve a personnel instance by its unique number.
-    #     """
-    #     personnel_number = self.kwargs.get('pk')
-    #     try:
-    #         return Personnel.objects.get(number_of_personnel=personnel_number)
-    #     except Personnel.DoesNotExist:
-    #         raise NotFound('Personnel not found')
-    
 
     def get_queryset(self):
         """
