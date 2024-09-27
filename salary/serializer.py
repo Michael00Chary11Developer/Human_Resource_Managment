@@ -50,7 +50,9 @@ class SalarySerializer(serializers.ModelSerializer):
             obj.base_salary, 
             obj.housing_allowance, 
             obj.child_allowance, 
-            obj.food_allowance
+            obj.food_allowance,
+            obj.personnel.number_of_child,
+            obj.personnel.marital_status.lower()
         )
     
     def get_net_salary(self, obj: Salary) -> Decimal:
@@ -58,7 +60,20 @@ class SalarySerializer(serializers.ModelSerializer):
         return calculate_net_salary(gross)
         
     def validate(self, data):
-        personnel = data.get('personnel')
+        # try:
+        personnel=data.get('personnel')
+        # all_data_personnel=Personnel.objects.get(number_of_personnel=personnel)
+        # number_of_child=all_data_personnel.number_of_child
+        # child_allowance=data.get('child_allowance')
+        # except Personnel.DoesNotExist:
+        #     raise serializers.ValidationError(
+        #         "Personnel with the given number does not exist.")
+
+        if number_of_child is None or 0:
+            if child_allowance is not None or not 0:
+                raise serializers.ValidationError('single person or a married person that have not child cannot have child_allowance'
+                                                  +'please enter it blank ir 0')
+
 
         if self.instance:
             if self.instance.personnel == personnel:
