@@ -1,7 +1,6 @@
 from .models import Resources
 from rest_framework import serializers
 from personnel.models import Personnel
-from django.utils import timezone
 
 """
 serializr class that serialize mean convert json to python object python object to json
@@ -45,6 +44,7 @@ class ResourceSerializer(serializers.ModelSerializer):
     """
 
     user = serializers.PrimaryKeyRelatedField(source="user_id", read_only=True)
+    date_of_employment=serializers.DateField(source='number_of_personnel.date_of_employment',read_only=True)
 
     number_of_personnel = serializers.PrimaryKeyRelatedField(
         queryset=Personnel.objects.all(), write_only=True)
@@ -60,6 +60,7 @@ class ResourceSerializer(serializers.ModelSerializer):
                   'asset_code',
                   'resource_name',
                   'resource_sort',
+                  'date_of_employment',
                   'dateـofـallocation',
                   'created_at',
                   'update_at']
@@ -71,31 +72,15 @@ class ResourceSerializer(serializers.ModelSerializer):
         Checks that the date of allocation is not ahead of the personnel's date of employment 
         and that it is not set in the future.
 
-        Raises:
-            serializers.ValidationError: If the date conditions are not met.
+
         """
-
-        today = timezone.now().date()
+        
         date_time_allocation = data.get("dateـofـallocation")
-        number_of_personnel = data.get("number_of_personnel")
-
-        # Verify that the personnel exists
-        try:
-            personnel = Personnel.objects.get(
-                number_of_personnel=number_of_personnel)
-        except Personnel.DoesNotExist:
-            raise serializers.ValidationError(
-                "Personnel with the given number does not exist.")
-
-        date_of_recruiment = personnel.date_of_employment
+        number_of_personnel:Personnel = data.get("number_of_personnel")
+        date_of_employment=number_of_personnel.date_of_employment
 
         # Validate date of allocation
-        if date_of_recruiment < date_time_allocation:
+        if date_of_employment > date_time_allocation:
             raise serializers.ValidationError(
-                "The date of allocation cannot being ahead of recruiment_data"
+                "The date of allocation cannot being ahead of date_of_employment"
             )
-
-        if date_time_allocation > today:
-            raise serializers.ValidationError(
-                "The data of aalocation cannot be in future!")
-        return data
