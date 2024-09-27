@@ -60,20 +60,15 @@ class SalarySerializer(serializers.ModelSerializer):
         return calculate_net_salary(gross)
         
     def validate(self, data):
-        # try:
         personnel=data.get('personnel')
-        all_data_personnel=Personnel.objects.get(number_of_personnel=personnel)
-        number_of_child=all_data_personnel.number_of_child
         child_allowance=data.get('child_allowance')
-        # except Personnel.DoesNotExist:
-        #     raise serializers.ValidationError(
-        #         "Personnel with the given number does not exist.")
 
-        if number_of_child is None or 0:
-            if child_allowance is not None or not 0:
-                raise serializers.ValidationError('single person or a married person that have not child cannot have child_allowance'
-                                                  +'please enter it blank ir 0')
+        if personnel.marital_status == 'single' or (personnel.marital_status == 'married' and personnel.number_of_child in [0, None]):
 
+            if child_allowance not in [0, None]:
+
+                raise serializers.ValidationError("Personnel with no children or single cannot have a child allowance.")
+            
 
         if self.instance:
             if self.instance.personnel == personnel:

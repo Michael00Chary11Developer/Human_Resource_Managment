@@ -9,7 +9,7 @@ class Salary(BaseModelDate):
 
     base_salary = models.DecimalField(max_digits=10, decimal_places=2)
     housing_allowance = models.DecimalField(max_digits=10, decimal_places=2)
-    child_allowance = models.DecimalField(max_digits=10, decimal_places=2)
+    child_allowance = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     food_allowance= models.DecimalField(max_digits=10, decimal_places=2)
     salary_start_date = models.DateField()
     
