@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 urlpatterns = [
@@ -34,4 +35,8 @@ urlpatterns = [
     path('personnel/', include('personnel.urls'), name='personnel'),
     path('recruitment/', include('recruitment.urls'), name='recruitment'),
     path('salary/', include('salary.urls'), name='salary'),
+
+    # jwt paths
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
