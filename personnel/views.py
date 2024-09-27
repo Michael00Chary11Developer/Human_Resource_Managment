@@ -14,15 +14,26 @@ class PersonnelViewSet(BaseModelViewSet):
 
     """
     A viewset for viewing and editing Personnel instances.
+
+    This viewset provides CRUD operations for personnel records and includes filtering
+    options based on personnel's position and level.
     """
     queryset = Personnel.objects.all()
     serializer_class = PersonnelSerializer
 
 
     def get_queryset(self):
+
+        
         """
         Optionally filter the returned personnel instances based on
         the 'position' and 'level_for_position' parameters.
+
+        Returns:
+            queryset: A filtered queryset of Personnel instances.
+        
+        Raises:
+            NotFound: If no personnel are found with the specified position or level.
         """
 
         position = self.kwargs.get('position')

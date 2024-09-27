@@ -50,6 +50,7 @@ class PersonnelSerializer(serializers.ModelSerializer):
         1. Ensures that the 'birth_date' is not in the future.
         2. Ensures that the 'date_of_employment' is not before the 'birth_date'.
         3. Ensures that the 'date_of_employment' is not in the future.
+        4. Validates marital status and children information.
 
         Args:
             data (dict): The input data containing the fields to be validated.

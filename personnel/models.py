@@ -6,15 +6,19 @@ from core.models import BaseModelDate
 
 class Personnel(BaseModelDate):
     """
-    A model representing personnel information.
-
-    This model stores various details about the personnel including
-    personal information, educational background, career records,
-    and employment details. Each personnel has a unique identifier
-    generated automatically in the format '100XXX'.
+    Inherits from BaseModelDate to include created and updated timestamps.
+    Model representing personnel information, including personal details,
+    education, career records, and employment data. Each personnel has a 
+    unique identifier in the format '100XXX'. The model contains fields for 
+    first name, last name, marital status, children information, religion, 
+    phone number, birth date, education, career history, position, level, 
+    and date of employment. The unique personnel number is generated 
+    automatically upon creation.
     """
 
     def create_new_number_of_personnel():
+
+        """Generates a unique personnel number in the format '100XXX'."""
 
         while True:
             random_number = random.randint(1, 999)
@@ -33,10 +37,7 @@ class Personnel(BaseModelDate):
         primary_key=True
     )
 
-    """
-    Unique personnel number generated in the format '100XXX'.
-    Automatically assigned upon creation.
-    """
+    
 
     # Personnel information
     firstname = models.CharField(max_length=100)
@@ -64,12 +65,9 @@ class Personnel(BaseModelDate):
     date_of_employment = models.DateField()
 
     def __str__(self):
+                   
+        """String representation of the Personnel model."""
 
         return f"{self.number_of_personnel} - {self.firstname} - {self.lastname}"
 
-    """
-        String representation of the Personnel model.
-        
-        Returns:
-            str: A string in the format 'number_of_personnel - firstname - lastname'.
-        """
+
