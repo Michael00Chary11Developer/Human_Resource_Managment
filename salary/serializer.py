@@ -62,9 +62,9 @@ class SalarySerializer(serializers.ModelSerializer):
     def validate(self, data):
         # try:
         personnel=data.get('personnel')
-        # all_data_personnel=Personnel.objects.get(number_of_personnel=personnel)
-        # number_of_child=all_data_personnel.number_of_child
-        # child_allowance=data.get('child_allowance')
+        all_data_personnel=Personnel.objects.get(number_of_personnel=personnel)
+        number_of_child=all_data_personnel.number_of_child
+        child_allowance=data.get('child_allowance')
         # except Personnel.DoesNotExist:
         #     raise serializers.ValidationError(
         #         "Personnel with the given number does not exist.")
