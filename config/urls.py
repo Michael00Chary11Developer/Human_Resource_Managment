@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import SpectacularAPIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
+from core.views import SwaggerViewBasicAuthentication, RedocViewBasicAuthentication
 
 urlpatterns = [
 
@@ -27,8 +27,9 @@ urlpatterns = [
 
     # doc paths
     path('api/schema/', SpectacularAPIView.as_view(), name="schema"),
-    path('api/redoc/', SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
-    path('api/swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name="swagger"),
+    path('api/redoc/', RedocViewBasicAuthentication.as_view(url_name="schema"), name="redoc"),
+    path('api/swagger/',
+         SwaggerViewBasicAuthentication.as_view(url_name='schema'), name="swagger"),
 
     # app paths
     path('resources/', include('resources.urls'), name='resources'),

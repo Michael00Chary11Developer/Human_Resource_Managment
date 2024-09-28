@@ -2,6 +2,10 @@ from rest_framework import viewsets
 from rest_framework.exceptions import NotFound
 from django.contrib.auth.models import User
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAdminUser
+from rest_framework.decorators import permission_classes, authentication_classes
+from drf_spectacular.views import SpectacularSwaggerView, SpectacularRedocView
 
 
 class BaseModelViewSet(viewsets.ModelViewSet):
@@ -26,12 +30,38 @@ class BaseModelViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         query_set = super().get_queryset()
-        
-        limit=self.request.query_params.get('limit')
-        offset=self.request.query_params.get("offset")
-        
+
+        limit = self.request.query_params.get('limit')
+        offset = self.request.query_params.get("offset")
+
         if limit is not None and offset is not None:
-            self.pagination_class=LimitOffsetPagination
-            self.pagination_class.default_limit=int(limit)
-            
+            self.pagination_class = LimitOffsetPagination
+            self.pagination_class.default_limit = int(limit)
+
         return query_set
+
+
+
+"""
+two authentication class that create login base on basic_authentication:
+    1:swagger
+    2.redoc
+    
+"""
+
+@permission_classes([IsAdminUser])
+@authentication_classes([BasicAuthentication])
+class SwaggerViewBasicAuthentication(SpectacularSwaggerView):
+    """
+    Requires admin access and uses Basic Authentication.
+    """
+    pass
+
+
+@permission_classes([IsAdminUser])
+@authentication_classes([BasicAuthentication])
+class RedocViewBasicAuthentication(SpectacularRedocView):
+    """
+    Requires admin access and uses Basic Authentication.
+    """
+    pass
