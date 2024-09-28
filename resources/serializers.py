@@ -1,6 +1,7 @@
 from .models import Resources
 from rest_framework import serializers
 from personnel.models import Personnel
+from django.utils import timezone
 
 """
 serializr class that serialize mean convert json to python object python object to json
@@ -44,7 +45,8 @@ class ResourceSerializer(serializers.ModelSerializer):
     """
 
     user = serializers.PrimaryKeyRelatedField(source="user_id", read_only=True)
-    date_of_employment=serializers.DateField(source='number_of_personnel.date_of_employment',read_only=True)
+    date_of_employment = serializers.DateField(
+        source='number_of_personnel.date_of_employment', read_only=True)
 
     number_of_personnel = serializers.PrimaryKeyRelatedField(
         queryset=Personnel.objects.all(), write_only=True)
@@ -74,13 +76,20 @@ class ResourceSerializer(serializers.ModelSerializer):
 
 
         """
-        
+
         date_time_allocation = data.get("dateـofـallocation")
-        number_of_personnel:Personnel = data.get("number_of_personnel")
-        date_of_employment=number_of_personnel.date_of_employment
+        number_of_personnel: Personnel = data.get("number_of_personnel")
+        date_of_employment = number_of_personnel.date_of_employment
+        today = timezone.now().date()
 
         # Validate date of allocation
         if date_of_employment > date_time_allocation:
             raise serializers.ValidationError(
                 "The date of allocation cannot being ahead of date_of_employment"
             )
+        if date_time_allocation > today:
+            raise serializers.ValidationError(
+                'The date of allocation cannot being ahead of today!'
+            )
+
+        return data
