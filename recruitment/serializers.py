@@ -45,9 +45,9 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         model = Recruitment
         fields = ['user_id', 'recruiment_id', 'recieved_resume',
                   'checked_resume', 'approved_resume', 'interviewed_resume',
-                  'duration_every_interview', 'recruitment_possition',
+                  'duration_every_interview', 'time_spent', 'recruitment_possition',
                   'recruiment_level_possition', 'recruitment_condition',
-                  'date_recruitment', 'created_at', 'update_at', 'time_spent']
+                  'date_recruitment', 'created_at', 'update_at']
 
     def get_time_spent(self, obj: Recruitment) -> timedelta:
         """
