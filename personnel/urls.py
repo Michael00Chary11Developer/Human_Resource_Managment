@@ -7,7 +7,7 @@ router = DefaultRouter()
 router.register('manage', views.PersonnelViewSet, basename='personnel')
 router_for_get_all_detail = DefaultRouter()
 router_for_get_all_detail.register(
-    'get-all', views.PersonnelGetAllViewSet, basename='get-all')
+    '', views.PersonnelGetAllViewSet, basename='get-all')
 
 
 urlpatterns = [

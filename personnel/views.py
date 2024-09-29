@@ -2,7 +2,7 @@ from rest_framework.exceptions import NotFound
 from .models import Personnel
 from .serializer import PersonnelSerializer
 from core.views import BaseModelViewSet
-
+from .serializer import PersonnelGetAllDetailSerializer
 
 
 class PersonnelViewSet(BaseModelViewSet):
@@ -16,17 +16,14 @@ class PersonnelViewSet(BaseModelViewSet):
     queryset = Personnel.objects.all()
     serializer_class = PersonnelSerializer
 
-
     def get_queryset(self):
-
-        
         """
         Optionally filter the returned personnel instances based on
         the 'position' and 'level_for_position' parameters.
 
         Returns:
             queryset: A filtered queryset of Personnel instances.
-        
+
         Raises:
             NotFound: If no personnel are found with the specified position or level.
         """
@@ -48,5 +45,7 @@ class PersonnelViewSet(BaseModelViewSet):
 
         return super().get_queryset()
 
+
 class PersonnelGetAllViewSet(BaseModelViewSet):
-    queryset=Personnel.objects
+    queryset = Personnel.objects.order_by('created_at').all()
+    serializer_class = PersonnelGetAllDetailSerializer

@@ -100,18 +100,19 @@ class PersonnelSerializer(serializers.ModelSerializer):
         return data
 
 
-class PersoonelGetAllDetail(serializers.ModelSerializer):
+class PersonnelGetAllDetailSerializer(serializers.ModelSerializer):
 
     resource_detail = ResourceSerializer(source='Resources', read_only=True)
     salary_detail = SalarySerializer(source='Salary', read_only=True)
 
     class Meta:
         model = Personnel
-        fields = ['number_of_personnel', 'firstname',
+        fields = ['user_id','number_of_personnel', 'firstname',
                   'lastname', 'marital_status',
                   'have_child', 'number_of_child',
                   'salary_detail', 'religion',
                   'sort_of_religion', 'phone_number',
                   'birth_date', 'degree', 'resource_detail',
                   'career_records', 'position',
-                  'level_for_position', 'date_of_employment']
+                  'level_for_position', 'date_of_employment',
+                  'created_at','update_at']

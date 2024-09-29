@@ -1,7 +1,9 @@
-import random
+from random import random
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from core.models import BaseModelDate
+from resources.models import Resources
+from salary.models import Salary
 
 
 class Personnel(BaseModelDate):
@@ -17,7 +19,6 @@ class Personnel(BaseModelDate):
     """
 
     def create_new_number_of_personnel():
-
         """Generates a unique personnel number in the format '100XXX'."""
 
         while True:
@@ -36,8 +37,6 @@ class Personnel(BaseModelDate):
         default=create_new_number_of_personnel,
         primary_key=True
     )
-
-    
 
     # Personnel information
     firstname = models.CharField(max_length=100)
@@ -64,10 +63,13 @@ class Personnel(BaseModelDate):
     # Date when the personnel was employed.
     date_of_employment = models.DateField()
 
+    # Nested Model
+    salary_datail = models.OneToOneField(
+        Salary, on_delete=models.CASCADE, related_name='salary_de')
+    resource_detail = models.OneToOneField(
+        Resources, on_delete=models.CASCADE, related_name='resource_de')
+
     def __str__(self):
-                   
         """String representation of the Personnel model."""
 
         return f"{self.number_of_personnel} - {self.firstname} - {self.lastname}"
-
-
