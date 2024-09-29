@@ -1,9 +1,7 @@
-from random import random
+import random
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from core.models import BaseModelDate
-from resources.models import Resources
-from salary.models import Salary
 
 
 class Personnel(BaseModelDate):
@@ -64,12 +62,25 @@ class Personnel(BaseModelDate):
     date_of_employment = models.DateField()
 
     # Nested Model
-    salary_datail = models.OneToOneField(
-        Salary, on_delete=models.CASCADE, related_name='salary_de')
+    salary_detail = models.OneToOneField(
+        'salary.Salary', on_delete=models.CASCADE, related_name='salary_de')
     resource_detail = models.OneToOneField(
-        Resources, on_delete=models.CASCADE, related_name='resource_de')
+        'resources.Resources', on_delete=models.CASCADE, related_name='resource_de')
 
     def __str__(self):
         """String representation of the Personnel model."""
 
         return f"{self.number_of_personnel} - {self.firstname} - {self.lastname}"
+    
+    def get_model(self):
+        from resources.models import Resources 
+        from salary.models import Salary  
+        
+
+        salary_instance = self.salary_detail  
+        resource_instance = self.resource_detail  
+
+        return {
+            'salary': salary_instance,
+            'resource': resource_instance
+        }
