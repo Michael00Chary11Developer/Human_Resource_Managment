@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from resources.models import Resources
+from salary.models import Salary
 
 """
 class:

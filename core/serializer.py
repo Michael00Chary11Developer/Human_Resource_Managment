@@ -20,7 +20,7 @@ class BaseCoreSerializer(serializers.ModelSerializer):
 class ResourcesDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
-        models = Resources
+        model = Resources
         fields = ['asset_code',
                   'resource_name',
                   'resource_sort',
@@ -30,24 +30,27 @@ class ResourcesDetailSerializer(serializers.ModelSerializer):
 class SalaryDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
-        models = Salary
+        model = Salary
         fields = ['salary_start_date',
                   'gross_salary',
                   "net_salary",]
 
 
-class PersonnelGetAllData(serializers.ModelSerializer):
+class PersonnelGetAllDataSerializer(serializers.ModelSerializer):
 
     salary_detail = SalaryDetailSerializer(read_only=True)
     resource_detail = SalaryDetailSerializer(read_only=True)
 
     class Meta:
-        models = Personnel
-        fields = BaseCoreSerializer.Meta.fields['user_id']
-        +['number_of_personnel',
-          'firstname',
-          'lastname',
-          'position',
-          'level_for_position',
-          'date_of_employment',
-          ] + BaseCoreSerializer.Meta.fields['created_at'] + BaseCoreSerializer.Meta.fields['update_at']
+        model = Personnel
+        fields = ['number_of_personnel',
+                  'firstname',
+                  'lastname',
+                  'position',
+                  'resource_detail',
+                  'salary_detail',
+                  'date_of_employment',
+                  'level_for_position',
+                  ]
+# [BaseCoreSerializer.Meta.fields[0]]+
+# + [BaseCoreSerializer.Meta.fields[1] + BaseCoreSerializer.Meta.fields[2]]
