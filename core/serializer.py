@@ -81,15 +81,15 @@ class PersonnelGetAllDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Personnel
-        fields = ['number_of_personnel',
-                  'firstname',
-                  'lastname',
-                  'position',
-                  'resource_detail',
-                  'salary_detail',
-                  'date_of_employment',
-                  'level_for_position',
-                  ]
+        fields = [BaseCoreSerializer.Meta.fields[0]] + ['number_of_personnel',
+                                                        'firstname',
+                                                        'lastname',
+                                                        'position',
+                                                        'resource_detail',
+                                                        'salary_detail',
+                                                        'date_of_employment',
+                                                        'level_for_position',
+                                                        ] + [BaseCoreSerializer.Meta.fields[1]]+[BaseCoreSerializer.Meta.fields[2]]
 
     def get_salary_detail(self, obj: Personnel):
         salary = Salary.objects.filter(
@@ -105,6 +105,3 @@ class PersonnelGetAllDataSerializer(serializers.ModelSerializer):
         if Resources:
             return ResourcesDetailSerializer(resource).data
         return None
-
-
-

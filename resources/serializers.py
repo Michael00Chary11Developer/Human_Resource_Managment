@@ -2,6 +2,7 @@ from .models import Resources
 from rest_framework import serializers
 from personnel.models import Personnel
 from django.utils import timezone
+from core.serializer import BaseCoreSerializer
 
 """
 serializr class that serialize mean convert json to python object python object to json
@@ -44,7 +45,6 @@ class ResourceSerializer(serializers.ModelSerializer):
         personnel_detail (PersonnelDetailSerializer): Nested serializer for personnel details (read-only).
     """
 
-    user = serializers.PrimaryKeyRelatedField(source="user_id", read_only=True)
     date_of_employment = serializers.DateField(
         source='number_of_personnel.date_of_employment', read_only=True)
 
@@ -56,16 +56,13 @@ class ResourceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Resources
-        fields = ['user',
-                  'number_of_personnel',
-                  'personnel_detail',
-                  'asset_code',
-                  'resource_name',
-                  'resource_sort',
-                  'date_of_employment',
-                  'dateـofـallocation',
-                  'created_at',
-                  'update_at']
+        fields = [BaseCoreSerializer.Meta.fields[0]]+['number_of_personnel',
+                                                      'personnel_detail',
+                                                      'asset_code',
+                                                      'resource_name',
+                                                      'resource_sort',
+                                                      'date_of_employment',
+                                                      'dateـofـallocation'] + [BaseCoreSerializer.Meta.fields[1]]+[BaseCoreSerializer.Meta.fields[2]]
 
     def validate(self, data):
         """

@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Recruitment
 from datetime import timedelta
 from django.utils import timezone
+from core.serializer import BaseCoreSerializer
 from dateutil.relativedelta import relativedelta
 
 """
@@ -43,11 +44,11 @@ class RecruitmentSerializer(serializers.ModelSerializer):
             fields (list): List of model fields to be included in the serialization.
         """
         model = Recruitment
-        fields = ['user_id', 'recruiment_id', 'recieved_resume',
+        fields = [BaseCoreSerializer.Meta.fields[0]] + ['recruiment_id', 'recieved_resume',
                   'checked_resume', 'approved_resume', 'interviewed_resume',
                   'duration_every_interview', 'time_spent', 'recruitment_possition',
                   'recruiment_level_possition', 'recruitment_condition',
-                  'date_recruitment', 'created_at', 'update_at']
+                  'date_recruitment']+ [BaseCoreSerializer.Meta.fields[1]]+[BaseCoreSerializer.Meta.fields[2]]
 
     def get_time_spent(self, obj: Recruitment) -> timedelta:
         """
