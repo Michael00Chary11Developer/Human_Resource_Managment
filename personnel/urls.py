@@ -7,7 +7,7 @@ router.register('manage', views.PersonnelViewSet, basename='personnel')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('position/<str:position>/',
+    path('possition/<str:position>/',
          views.PersonnelViewSet.as_view({'get': 'list'})),
     path('level/<str:level_for_position>/',
          views.PersonnelViewSet.as_view({'get': 'list'})),

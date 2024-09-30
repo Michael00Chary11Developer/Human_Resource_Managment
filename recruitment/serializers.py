@@ -97,10 +97,6 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         date_recruiment = data.get('date_recruitment')
         now = timezone.now().date()
 
-        if date_recruiment > now:
-            raise serializers.ValidationError(
-                "data_recruiment can be in future but not more than one year!")
-
         if recruitment_condition not in ["Accept", "accept"]:
             if date_recruiment is not None:
                 raise serializers.ValidationError(
@@ -108,6 +104,10 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         elif date_recruiment is None:
             raise serializers.ValidationError(
                 'condition of Accept or accept must have date_recruiment')
+            
+        if date_recruiment > now:
+            raise serializers.ValidationError(
+                "data_recruiment can be in future but not more than one year!")    
 
         if recived_resume < checked_resume:
             raise serializers.ValidationError(
