@@ -116,6 +116,10 @@ class SalarySerializer(serializers.ModelSerializer):
         """
         personnel:Personnel=data.get('personnel')
         child_allowance=data.get('child_allowance')
+        salary_start_date=data.get('salary_start_date')
+        
+        if salary_start_date < personnel.date_of_employment:
+            raise serializers.ValidationError("The salary_start_date cannot being ahead of date_of_employment")
 
         if personnel.marital_status == 'single' or (personnel.marital_status == 'married' and personnel.number_of_child in [0, None]):
 
