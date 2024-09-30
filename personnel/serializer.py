@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from resources.serializers import ResourceSerializer
+from salary.serializer import SalarySerializer
 from .models import Personnel
 from django.utils import timezone
 from core.serializer import BaseCoreSerializer
@@ -69,7 +71,7 @@ class PersonnelSerializer(BaseCoreSerializer):
         number_of_child = data.get('number_of_child')
 
         if marital_status.lower() != 'married':
-            if have_child is not False or number_of_child  not in [None, 0]:
+            if have_child is not False or number_of_child not in [None, 0]:
                 raise serializers.ValidationError(
                     "Unmarried person cannot have children!")
 
@@ -94,3 +96,21 @@ class PersonnelSerializer(BaseCoreSerializer):
                 'Date of employment cannot be in the future.')
 
         return data
+
+
+class PersonnelGetAllDetailSerializer(serializers.ModelSerializer):
+
+    resource_detail = ResourceSerializer(source='Resources', read_only=True)
+    salary_detail = SalarySerializer(source='Salary', read_only=True)
+
+    class Meta:
+        model = Personnel
+        fields = ['user_id','number_of_personnel', 'firstname',
+                  'lastname', 'marital_status',
+                  'have_child', 'number_of_child',
+                  'salary_detail', 'religion',
+                  'sort_of_religion', 'phone_number',
+                  'birth_date', 'degree', 'resource_detail',
+                  'career_records', 'position',
+                  'level_for_position', 'date_of_employment',
+                  'created_at','update_at']

@@ -1,13 +1,8 @@
 from rest_framework.exceptions import NotFound
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.response import Response
-from rest_framework.request import Request
-from django.shortcuts import render
 from .models import Personnel
 from .serializer import PersonnelSerializer
-from django.contrib.auth.models import User
 from core.views import BaseModelViewSet
-
+from .serializer import PersonnelGetAllDetailSerializer
 
 
 class PersonnelViewSet(BaseModelViewSet):
@@ -21,17 +16,14 @@ class PersonnelViewSet(BaseModelViewSet):
     queryset = Personnel.objects.all()
     serializer_class = PersonnelSerializer
 
-
     def get_queryset(self):
-
-        
         """
         Optionally filter the returned personnel instances based on
         the 'position' and 'level_for_position' parameters.
 
         Returns:
             queryset: A filtered queryset of Personnel instances.
-        
+
         Raises:
             NotFound: If no personnel are found with the specified position or level.
         """
@@ -52,3 +44,8 @@ class PersonnelViewSet(BaseModelViewSet):
             return queryset
 
         return super().get_queryset()
+
+
+class PersonnelGetAllViewSet(BaseModelViewSet):
+    queryset = Personnel.objects.order_by('created_at').all()
+    serializer_class = PersonnelGetAllDetailSerializer

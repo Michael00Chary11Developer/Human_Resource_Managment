@@ -17,7 +17,6 @@ class Personnel(BaseModelDate):
     """
 
     def create_new_number_of_personnel():
-
         """Generates a unique personnel number in the format '100XXX'."""
 
         while True:
@@ -36,8 +35,6 @@ class Personnel(BaseModelDate):
         default=create_new_number_of_personnel,
         primary_key=True
     )
-
-    
 
     # Personnel information
     firstname = models.CharField(max_length=100)
@@ -64,10 +61,26 @@ class Personnel(BaseModelDate):
     # Date when the personnel was employed.
     date_of_employment = models.DateField()
 
+    # Nested Model
+    salary_detail = models.OneToOneField(
+        'salary.Salary', on_delete=models.CASCADE, related_name='salary_de')
+    resource_detail = models.OneToOneField(
+        'resources.Resources', on_delete=models.CASCADE, related_name='resource_de')
+
     def __str__(self):
-                   
         """String representation of the Personnel model."""
 
         return f"{self.number_of_personnel} - {self.firstname} - {self.lastname}"
+    
+    def get_model(self):
+        from resources.models import Resources 
+        from salary.models import Salary  
+        
 
+        salary_instance = self.salary_detail  
+        resource_instance = self.resource_detail  
 
+        return {
+            'salary': salary_instance,
+            'resource': resource_instance
+        }
