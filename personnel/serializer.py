@@ -1,6 +1,4 @@
 from rest_framework import serializers
-from resources.serializers import ResourceSerializer
-from salary.serializer import SalarySerializer
 from .models import Personnel
 from django.utils import timezone
 from core.serializer import BaseCoreSerializer
