@@ -2,7 +2,7 @@ from rest_framework.exceptions import NotFound
 from .models import Personnel
 from .serializer import PersonnelSerializer
 from core.views import BaseModelViewSet
-from .serializer import PersonnelGetAllDetailSerializer
+from core.serializer import PersonnelGetAllDataSerializer
 
 
 class PersonnelViewSet(BaseModelViewSet):
@@ -48,4 +48,4 @@ class PersonnelViewSet(BaseModelViewSet):
 
 class PersonnelGetAllViewSet(BaseModelViewSet):
     queryset = Personnel.objects.order_by('created_at').all()
-    serializer_class = PersonnelGetAllDetailSerializer
+    serializer_class = PersonnelGetAllDataSerializer

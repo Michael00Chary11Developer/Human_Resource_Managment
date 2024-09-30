@@ -61,7 +61,10 @@ class Personnel(BaseModelDate):
     # Date when the personnel was employed.
     date_of_employment = models.DateField()
 
+
+
     def __str__(self):
         """String representation of the Personnel model."""
 
         return f"{self.number_of_personnel} - {self.firstname} - {self.lastname}"
+    
