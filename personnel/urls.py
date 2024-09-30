@@ -1,4 +1,5 @@
 from rest_framework.routers import DefaultRouter
+from core.serializer import PersonnelGetAllData
 from django.urls import path, include
 from . import views
 
@@ -7,7 +8,7 @@ router = DefaultRouter()
 router.register('manage', views.PersonnelViewSet, basename='personnel')
 router_for_get_all_detail = DefaultRouter()
 router_for_get_all_detail.register(
-    '', views.PersonnelGetAllViewSet, basename='get-all')
+    '', PersonnelGetAllData, basename='get-all')
 
 
 urlpatterns = [
