@@ -8,6 +8,9 @@ from salary.utils import calculate_gross_salary, calculate_net_salary
 
 
 class BaseCoreSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the base model that includes creation and update timestamps.
+    """
     created_at = serializers.DateTimeField(
         format="%Y-%m-%d %H:%M:%S", read_only=True)
     update_at = serializers.DateTimeField(
@@ -20,7 +23,9 @@ class BaseCoreSerializer(serializers.ModelSerializer):
 
 
 class ResourcesDetailSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for Salary model that includes salary details and computed fields for gross and net salary.
+    """
     class Meta:
         model = Resources
         fields = ['asset_code',
@@ -75,6 +80,11 @@ class SalaryDetailSerializer(serializers.ModelSerializer):
 
 
 class PersonnelGetAllDataSerializer(serializers.ModelSerializer):
+    
+    """
+    Serializer for Personnel model that includes personal information,
+    as well as nested salary and resource details.
+    """
 
     salary_detail = serializers.SerializerMethodField()
     resource_detail = serializers.SerializerMethodField()
@@ -92,6 +102,17 @@ class PersonnelGetAllDataSerializer(serializers.ModelSerializer):
                                                         ] + [BaseCoreSerializer.Meta.fields[1]]+[BaseCoreSerializer.Meta.fields[2]]
 
     def get_salary_detail(self, obj: Personnel):
+        
+        """
+        Retrieve and serialize salary details for the personnel.
+
+        Args:
+            obj (Personnel): The Personnel instance for which to get salary details.
+
+        Returns:
+            dict or None: Serialized salary details or None if no salary is found.
+        """
+        
         salary = Salary.objects.filter(
             personnel=obj.number_of_personnel).first()
         if salary:
@@ -99,6 +120,17 @@ class PersonnelGetAllDataSerializer(serializers.ModelSerializer):
         return None
 
     def get_resource_detail(self, obj: Personnel):
+        
+        """
+        Retrieve and serialize resource details for the personnel.
+
+        Args:
+            obj (Personnel): The Personnel instance for which to get resource details.
+
+        Returns:
+            dict or None: Serialized resource details or None if no resource is found.
+        """
+        
         resource = Resources.objects.filter(
             number_of_personnel=obj.number_of_personnel
         ).first()
