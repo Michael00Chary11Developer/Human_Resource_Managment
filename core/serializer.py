@@ -4,7 +4,7 @@ from resources.models import Resources
 from personnel.models import Personnel
 from salary.models import Salary
 from decimal import Decimal
-from salary.calculations import calculate_gross_salary, calculate_net_salary
+from salary.utils import calculate_gross_salary, calculate_net_salary
 
 
 class BaseCoreSerializer(serializers.ModelSerializer):
