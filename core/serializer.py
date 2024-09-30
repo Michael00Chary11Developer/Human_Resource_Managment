@@ -9,4 +9,4 @@ class BaseCoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = BaseModelDate
         fields = ['user_id', 'created_at', 'update_at']
-        read_only_fields = ['user_id', 'created_at', 'update_at']
+        read_only_fields = ['user_id']
