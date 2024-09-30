@@ -54,6 +54,9 @@ class SalarySerializer(BaseCoreSerializer):
     Computed net salary for the personnel after tax deductions. This field is read-only.
     """
 
+    date_of_employment = serializers.DateField(
+        source='personnel.date_of_employment', read_only=True)
+    
     class Meta:
         
         
@@ -65,6 +68,7 @@ class SalarySerializer(BaseCoreSerializer):
                   'housing_allowance',
                   'child_allowance',
                   'food_allowance',
+                  'date_of_employment',
                   'salary_start_date',
                   'gross_salary',
                   "net_salary",
