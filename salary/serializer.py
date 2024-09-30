@@ -4,6 +4,7 @@ from personnel.models import Personnel
 from .utils import calculate_gross_salary, calculate_net_salary
 from decimal import Decimal
 from core.serializer import BaseCoreSerializer
+from django.utils import timezone
 
 
 
@@ -72,7 +73,7 @@ class SalarySerializer(BaseCoreSerializer):
                   'salary_start_date',
                   'gross_salary',
                   "net_salary",
-                  ]
+                  ] 
         
         read_only_fields = BaseCoreSerializer.Meta.read_only_fields  
 
@@ -80,7 +81,7 @@ class SalarySerializer(BaseCoreSerializer):
         List of fields that cannot be modified during serialization.
         """
 
-        
+         
 
     def get_gross_salary(self, obj: Salary) -> Decimal:
 
@@ -124,6 +125,10 @@ class SalarySerializer(BaseCoreSerializer):
         
         if salary_start_date < personnel.date_of_employment:
             raise serializers.ValidationError("The salary_start_date cannot being ahead of date_of_employment")
+        
+        if salary_start_date > timezone.now().date():
+            raise serializers.ValidationError("The salary_start_date cannot be in the future.")
+
 
         if personnel.marital_status == 'single' or (personnel.marital_status == 'married' and personnel.number_of_child in [0, None]):
 

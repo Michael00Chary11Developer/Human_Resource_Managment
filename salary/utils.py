@@ -25,7 +25,8 @@ def calculate_gross_salary(base_salary, housing_allowance, child_allowance, food
     if marital_status == 'single' or (marital_status == 'married' and number_of_child in [0, None]):
         return base_salary + housing_allowance + food_allowance
 
-    child_allowance = child_allowance or 0
+    child_allowance = child_allowance if child_allowance is not None else Decimal(0)
+
     
     return base_salary + housing_allowance + (number_of_child*child_allowance) + food_allowance
 
