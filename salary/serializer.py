@@ -3,6 +3,8 @@ from .models import Salary
 from personnel.models import Personnel
 from .calculations import calculate_gross_salary, calculate_net_salary
 from decimal import Decimal
+from core.serializer import BaseCoreSerializer
+
 
 
 
@@ -21,7 +23,7 @@ class PersonnelSerializer(serializers.ModelSerializer):
 
 
 
-class SalarySerializer(serializers.ModelSerializer):
+class SalarySerializer(BaseCoreSerializer):
 
     """
     Serializer for the Salary model.
@@ -56,7 +58,7 @@ class SalarySerializer(serializers.ModelSerializer):
         
         
         model = Salary
-        fields = ['user_id',
+        fields = BaseCoreSerializer.Meta.fields + [
                   'personnel',
                   'personnel_detail',
                   'base_salary',
@@ -66,11 +68,9 @@ class SalarySerializer(serializers.ModelSerializer):
                   'salary_start_date',
                   'gross_salary',
                   "net_salary",
-                  'created_at',
-                  'update_at'
                   ]
         
-        read_only_fields = ['number_of_personnel', 'created_at', 'update_at', 'user_id']
+        read_only_fields = BaseCoreSerializer.Meta.read_only_fields  
 
         """
         List of fields that cannot be modified during serialization.

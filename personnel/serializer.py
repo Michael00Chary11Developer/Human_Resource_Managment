@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from .models import Personnel
 from django.utils import timezone
+from core.serializer import BaseCoreSerializer
 
 
-class PersonnelSerializer(serializers.ModelSerializer):
+
+class PersonnelSerializer(BaseCoreSerializer):
     """
     Serializer for the Personnel model.
 
@@ -11,11 +13,11 @@ class PersonnelSerializer(serializers.ModelSerializer):
     and JSON representations, allowing for easy input and output of personnel
     data through API endpoints.
     """
-
+    
+    
     class Meta:
         model = Personnel
-        fields = [
-            'user_id',
+        fields = BaseCoreSerializer.Meta.fields + [
             'number_of_personnel',
             'firstname',
             'lastname',
@@ -32,12 +34,8 @@ class PersonnelSerializer(serializers.ModelSerializer):
             'position',
             'level_for_position',
             'date_of_employment',
-            'created_at',
-            'update_at',
         ]
-        read_only_fields = ['number_of_personnel',
-                            'created_at', 'update_at', 'user_id']
-
+        read_only_fields = BaseCoreSerializer.Meta.read_only_fields  
         """
         Include all fields from the Personnel model in the serialized output.
         """
