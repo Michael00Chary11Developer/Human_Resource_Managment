@@ -13,7 +13,7 @@ router_for_get_all_detail.register('',
 urlpatterns = [
     path('', include(router.urls)),
 
-    path('get-all/<int:number_of_personnel>',
+    path('get-all/',
          include(router_for_get_all_detail.urls), name="get_all"),
 
     path('possition/<str:position>/',
