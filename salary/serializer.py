@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Salary
 from personnel.models import Personnel
-from .calculations import calculate_gross_salary, calculate_net_salary
+from .utils import calculate_gross_salary, calculate_net_salary
 from decimal import Decimal
 from core.serializer import BaseCoreSerializer
 
