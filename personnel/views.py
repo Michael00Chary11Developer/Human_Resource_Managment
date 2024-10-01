@@ -49,3 +49,5 @@ class PersonnelViewSet(BaseModelViewSet):
 class PersonnelGetAllViewSet(BaseModelViewSet):
     queryset = Personnel.objects.order_by('created_at').all()
     serializer_class = PersonnelGetAllDataSerializer
+    
+    http_method_names = ['get']
