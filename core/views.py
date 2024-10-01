@@ -34,12 +34,15 @@ class BaseModelViewSet(viewsets.ModelViewSet):
         limit = self.request.query_params.get('limit')
         offset = self.request.query_params.get("offset")
 
-        if limit is not None and offset is not None:
+        if limit is not None:
             self.pagination_class = LimitOffsetPagination
             self.pagination_class.default_limit = int(limit)
 
-        return query_set
+        if limit is not None or offset is not None:
 
+            self.pagination_class = LimitOffsetPagination
+
+        return query_set
 
 
 """
@@ -48,6 +51,7 @@ two authentication class that create login base on basic_authentication:
     2.redoc
     
 """
+
 
 @permission_classes([IsAdminUser])
 @authentication_classes([BasicAuthentication])
