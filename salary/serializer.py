@@ -148,7 +148,6 @@ class SalarySerializer(BaseCoreSerializer):
                 return data
 
         if Salary.objects.filter(personnel=personnel).exists():
-            raise serializers.ValidationError(f'A salary record for personnel {
-                                              personnel} already exists.')
+            raise serializers.ValidationError(f'A salary record for personnel {personnel} already exists.')
 
         return data
