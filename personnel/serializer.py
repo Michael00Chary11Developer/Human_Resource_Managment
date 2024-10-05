@@ -4,7 +4,6 @@ from django.utils import timezone
 from core.serializer import BaseCoreSerializer
 
 
-
 class PersonnelSerializer(BaseCoreSerializer):
     """
     Serializer for the Personnel model.
@@ -13,11 +12,10 @@ class PersonnelSerializer(BaseCoreSerializer):
     and JSON representations, allowing for easy input and output of personnel
     data through API endpoints.
     """
-    
-    
+
     class Meta:
         model = Personnel
-        fields = BaseCoreSerializer.Meta.fields + [
+        fields = [BaseCoreSerializer.Meta.fields[0]]+[
             'number_of_personnel',
             'firstname',
             'lastname',
@@ -34,8 +32,8 @@ class PersonnelSerializer(BaseCoreSerializer):
             'position',
             'level_for_position',
             'date_of_employment',
-        ]
-        read_only_fields = BaseCoreSerializer.Meta.read_only_fields  
+        ] + [BaseCoreSerializer.Meta.fields[1]]+[BaseCoreSerializer.Meta.fields[2]]
+        read_only_fields = BaseCoreSerializer.Meta.read_only_fields
         """
         Include all fields from the Personnel model in the serialized output.
         """

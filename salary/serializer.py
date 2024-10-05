@@ -57,7 +57,8 @@ class SalarySerializer(BaseCoreSerializer):
     class Meta:
 
         model = Salary
-        fields = BaseCoreSerializer.Meta.fields + [
+        fields = [
+            'user_id',
             'personnel',
             'personnel_detail',
             'base_salary',
@@ -68,6 +69,8 @@ class SalarySerializer(BaseCoreSerializer):
             'salary_start_date',
             'gross_salary',
             "net_salary",
+            'created_at',
+            'update_at'
         ]
 
         read_only_fields = BaseCoreSerializer.Meta.read_only_fields

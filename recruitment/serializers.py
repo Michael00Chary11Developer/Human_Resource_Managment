@@ -18,7 +18,7 @@ Attributes:
 """
 
 
-class RecruitmentSerializer(serializers.ModelSerializer):
+class RecruitmentSerializer(BaseCoreSerializer):
     """
     Serializer class for the Recruitment model.
 
@@ -45,10 +45,10 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         """
         model = Recruitment
         fields = [BaseCoreSerializer.Meta.fields[0]] + ['recruiment_id', 'recieved_resume',
-                  'checked_resume', 'approved_resume', 'interviewed_resume',
-                  'duration_every_interview', 'time_spent', 'recruitment_possition',
-                  'recruiment_level_possition', 'recruitment_condition',
-                  'date_recruitment']+ [BaseCoreSerializer.Meta.fields[1]]+[BaseCoreSerializer.Meta.fields[2]]
+                                                        'checked_resume', 'approved_resume', 'interviewed_resume',
+                                                        'duration_every_interview', 'time_spent', 'recruitment_possition',
+                                                        'recruiment_level_possition', 'recruitment_condition',
+                                                        'date_recruitment'] + [BaseCoreSerializer.Meta.fields[1]]+[BaseCoreSerializer.Meta.fields[2]]
 
     def get_time_spent(self, obj: Recruitment) -> timedelta:
         """
@@ -105,10 +105,10 @@ class RecruitmentSerializer(serializers.ModelSerializer):
         elif date_recruiment is None:
             raise serializers.ValidationError(
                 'condition of Accept or accept must have date_recruiment')
-            
+
         if date_recruiment > now:
             raise serializers.ValidationError(
-                "data_recruiment can be in future but not more than one year!")    
+                "data_recruiment can be in future but not more than one year!")
 
         if recived_resume < checked_resume:
             raise serializers.ValidationError(
