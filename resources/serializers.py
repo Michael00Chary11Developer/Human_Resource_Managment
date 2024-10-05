@@ -63,6 +63,7 @@ class ResourceSerializer(serializers.ModelSerializer):
                                                       'resource_sort',
                                                       'date_of_employment',
                                                       'dateـofـallocation'] + [BaseCoreSerializer.Meta.fields[1]]+[BaseCoreSerializer.Meta.fields[2]]
+        read_only_fields = BaseCoreSerializer.Meta.read_only_fields
 
     def validate(self, data):
         """
@@ -88,5 +89,12 @@ class ResourceSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'The date of allocation cannot being ahead of today!'
             )
+
+        if self.instance:
+            if self.instance.number_of_personnel == number_of_personnel:
+                return data
+
+        if Resources.objects.filter(number_of_personnel=number_of_personnel).exists:
+            raise serializers.ValidationError(f'A resource record for personnel {number_of_personnel} already exists.')
 
         return data
