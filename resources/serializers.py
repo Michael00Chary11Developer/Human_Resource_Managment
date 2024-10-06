@@ -94,7 +94,7 @@ class ResourceSerializer(BaseCoreSerializer):
             if self.instance.number_of_personnel == number_of_personnel:
                 return data
 
-        if Resources.objects.filter(number_of_personnel=number_of_personnel).exists:
+        if Resources.objects.filter(number_of_personnel=number_of_personnel).exists():
             raise serializers.ValidationError(f'A resource record for personnel {number_of_personnel} already exists.')
 
         return data
