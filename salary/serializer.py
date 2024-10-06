@@ -119,7 +119,13 @@ class SalarySerializer(BaseCoreSerializer):
         housing_allowance = data.get('housing_allowance')
         food_allowance = data.get('food_allowance')
 
-        if child_allowance > base_salary:
+        
+        if personnel.marital_status.lower != 'married' or (personnel.marital_status == 'married' and personnel.number_of_child in [0, None]):
+            if child_allowance not in [0, None]:
+                raise serializers.ValidationError(
+                    "Personnel with no children or single or another marital except married cannot have a child allowance.")
+            
+        if child_allowance is not None and child_allowance > base_salary:
             raise serializers.ValidationError(
                 "child_allowance cannot be more base_salary")
 
@@ -138,13 +144,6 @@ class SalarySerializer(BaseCoreSerializer):
         if salary_start_date > timezone.now().date():
             raise serializers.ValidationError(
                 "The salary_start_date cannot be in the future.")
-
-        if personnel.marital_status == 'single' or (personnel.marital_status == 'married' and personnel.number_of_child in [0, None]):
-
-            if child_allowance not in [0, None]:
-
-                raise serializers.ValidationError(
-                    "Personnel with no children or single cannot have a child allowance.")
 
         if self.instance:
             if self.instance.personnel == personnel:
