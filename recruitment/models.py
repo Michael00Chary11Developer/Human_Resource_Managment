@@ -53,7 +53,7 @@ class Recruitment(BaseModelDate):
         """
         return f"{self.date_recruitment}\t{self.recruitment_condition}"
 
-    def interview_spent_time_calculate(self) -> timedelta:
+    def interview_spent_time_calculate(self) -> str:
         """
         Return str format of time delta
         1.get duration_every_interview and convert it to seconds set to convertor_int
