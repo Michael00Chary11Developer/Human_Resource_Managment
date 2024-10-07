@@ -56,7 +56,7 @@ class ResourceSerializer(BaseCoreSerializer):
 
     class Meta:
         model = Resources
-        fields = [BaseCoreSerializer.Meta.fields[0]]+['user_id', 'number_of_personnel',
+        fields = [BaseCoreSerializer.Meta.fields[0]]+['number_of_personnel',
                                                       'personnel_detail',
                                                       'asset_code',
                                                       'resource_name',

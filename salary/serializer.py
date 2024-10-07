@@ -64,7 +64,7 @@ class SalarySerializer(BaseCoreSerializer):
             'base_salary',
             'housing_allowance',
             'child_allowance',
-            'food_allowance',
+            'groceries_allowance',
             'date_of_employment',
             'salary_start_date',
             'gross_salary',
@@ -84,13 +84,13 @@ class SalarySerializer(BaseCoreSerializer):
         Calculate and return the gross salary for the personnel.
 
         The gross salary is calculated based on the base salary, housing allowance,
-        child allowance, food allowance, number of children, and marital status of the personnel.
+        child allowance, groceries allowance, number of children, and marital status of the personnel.
         """
         return calculate_gross_salary(
             obj.base_salary,
             obj.housing_allowance,
             obj.child_allowance,
-            obj.food_allowance,
+            obj.groceries_allowance,
             obj.personnel.number_of_child,
             obj.personnel.marital_status.lower()
         )
@@ -117,7 +117,7 @@ class SalarySerializer(BaseCoreSerializer):
         salary_start_date = data.get('salary_start_date')
         base_salary = data.get('base_salary')
         housing_allowance = data.get('housing_allowance')
-        food_allowance = data.get('food_allowance')
+        groceries_allowance= data.get('groceries_allowance')
 
         
         if personnel.marital_status.lower != 'married' or (personnel.marital_status == 'married' and personnel.number_of_child in [0, None]):
@@ -133,9 +133,9 @@ class SalarySerializer(BaseCoreSerializer):
             raise serializers.ValidationError(
                 "housing_allowance cannot be more base_salary")
 
-        if food_allowance > housing_allowance:
+        if groceries_allowance > housing_allowance:
             raise serializers.ValidationError(
-                "food_allowance cannot be more housing_allowance")
+                "groceries_allowance cannot be more housing_allowance")
 
         if salary_start_date < personnel.date_of_employment:
             raise serializers.ValidationError(
