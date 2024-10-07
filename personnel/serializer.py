@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Personnel
 from django.utils import timezone
 from core.serializer import BaseCoreSerializer
+from core.utils import CleanData
 
 
 class PersonnelSerializer(BaseCoreSerializer):
@@ -62,11 +63,11 @@ class PersonnelSerializer(BaseCoreSerializer):
         date_of_employment = data.get('date_of_employment')
         today = timezone.now().date()
 
-        marital_status = data.get('marital_status')
-        have_child = data.get('have_child')
-        number_of_child = data.get('number_of_child')
+        marital_status = CleanData(data.get('marital_status')).created_clean()
+        have_child= data.get('have_child')
+        number_of_child= data.get('number_of_child')
 
-        if marital_status.lower() != 'married':
+        if marital_status != 'married':
             if have_child is not False or number_of_child not in [None, 0]:
                 raise serializers.ValidationError(
                     "Unmarried person cannot have children!")

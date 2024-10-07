@@ -4,6 +4,7 @@ from personnel.models import Personnel
 from .utils import calculate_gross_salary, calculate_net_salary
 from decimal import Decimal
 from core.serializer import BaseCoreSerializer
+from core.utils import CleanData
 from django.utils import timezone
 
 
@@ -92,7 +93,7 @@ class SalarySerializer(BaseCoreSerializer):
             obj.child_allowance,
             obj.groceries_allowance,
             obj.personnel.number_of_child,
-            obj.personnel.marital_status.lower()
+            CleanData(obj.personnel.marital_status).created_clean()
         )
 
     def get_net_salary(self, obj: Salary) -> Decimal:
@@ -117,14 +118,16 @@ class SalarySerializer(BaseCoreSerializer):
         salary_start_date = data.get('salary_start_date')
         base_salary = data.get('base_salary')
         housing_allowance = data.get('housing_allowance')
-        groceries_allowance= data.get('groceries_allowance')
+        groceries_allowance = data.get('groceries_allowance')
 
-        
-        if personnel.marital_status.lower != 'married' or (personnel.marital_status == 'married' and personnel.number_of_child in [0, None]):
+        if CleanData(personnel.marital_status).created_clean() != 'married' or (CleanData(personnel.marital_status).created_clean() == 'married' and personnel.number_of_child in [0, None]):
             if child_allowance not in [0, None]:
                 raise serializers.ValidationError(
                     "Personnel with no children or single or another marital except married cannot have a child allowance.")
-            
+        elif CleanData(personnel.marital_status).created_clean() == 'married' and personnel.number_of_child not in [0, None]:
+            raise serializers.ValidationError(
+                "The Person Who have child must have child_allowance")
+
         if child_allowance is not None and child_allowance > base_salary:
             raise serializers.ValidationError(
                 "child_allowance cannot be more base_salary")
@@ -150,6 +153,7 @@ class SalarySerializer(BaseCoreSerializer):
                 return data
 
         if Salary.objects.filter(personnel=personnel).exists():
-            raise serializers.ValidationError(f'A salary record for personnel {personnel} already exists.')
+            raise serializers.ValidationError(
+                f'A salary record for personnel {personnel} already exists.')
 
         return data

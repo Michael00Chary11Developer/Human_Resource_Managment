@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 
-def calculate_gross_salary(base_salary, housing_allowance, child_allowance, food_allowance, number_of_child, marital_status):
+def calculate_gross_salary(base_salary, housing_allowance, child_allowance, food_allowance, number_of_child, marital_status:str):
 
     """
     Calculate the gross salary based on various allowances and marital status.
@@ -22,7 +22,7 @@ def calculate_gross_salary(base_salary, housing_allowance, child_allowance, food
         (i.e., number_of_child is 0 or None), the child allowance is not included in the calculation.
     """
 
-    if marital_status == 'single' or (marital_status == 'married' and number_of_child in [0, None]):
+    if marital_status != 'married' or (marital_status == 'married' and number_of_child in [0, None]):
         return base_salary + housing_allowance + food_allowance
 
     child_allowance = child_allowance if child_allowance is not None else Decimal(0)
