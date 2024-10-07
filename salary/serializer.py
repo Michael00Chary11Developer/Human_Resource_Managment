@@ -120,11 +120,11 @@ class SalarySerializer(BaseCoreSerializer):
         housing_allowance = data.get('housing_allowance')
         groceries_allowance = data.get('groceries_allowance')
 
-        if CleanData(personnel.marital_status).created_clean() != 'married' or (CleanData(personnel.marital_status).created_clean() == 'married' and personnel.number_of_child in [0, None]):
+        if personnel.marital_status != 'married' or personnel.marital_status == 'married' and personnel.number_of_child in [0, None]:
             if child_allowance not in [0, None]:
                 raise serializers.ValidationError(
                     "Personnel with no children or single or another marital except married cannot have a child allowance.")
-        elif CleanData(personnel.marital_status).created_clean() == 'married' and personnel.number_of_child not in [0, None]:
+        elif personnel.marital_status == 'married' and personnel.number_of_child not in [0, None]:
             raise serializers.ValidationError(
                 "The Person Who have child must have child_allowance")
 
@@ -142,7 +142,7 @@ class SalarySerializer(BaseCoreSerializer):
 
         if salary_start_date < personnel.date_of_employment:
             raise serializers.ValidationError(
-                "The salary_start_date cannot being ahead of date_of_employment")
+                "The date_of_employment cannot being ahead of salary_start_date")
 
         if salary_start_date > timezone.now().date():
             raise serializers.ValidationError(
