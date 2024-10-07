@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import Recruitment
 from .serializers import RecruitmentSerializer, RecruitmentDetailSerializer
 from rest_framework.viewsets import ModelViewSet
@@ -29,7 +28,7 @@ class RecruitmentViews(BaseModelViewSet):
     - If 'recruitment_possition' is provided in the URL, filters the queryset by that position.
     - Uses 'RecruitmentSerializer' to serialize the Recruitment model.
     """
-    queryset = Recruitment.objects.order_by('recruiment_id').all()
+    queryset = Recruitment.objects.order_by('date_recruitment').all()
     serializer_class = RecruitmentSerializer
 
     def get_queryset(self):
@@ -55,7 +54,7 @@ class RecruitmentDetailViews(ModelViewSet):
     - Orders recruitment data by 'recruiment_id'.
     - Uses 'RecruitmentDetailSerializer' to serialize the detailed Recruitment model.
     """
-    queryset = Recruitment.objects.order_by('recruiment_id').all()
+    queryset = Recruitment.objects.order_by('date_recruitment').all()
     serializer_class = RecruitmentDetailSerializer
 
     def get_queryset(self):
