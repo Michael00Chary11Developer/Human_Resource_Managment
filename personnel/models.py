@@ -18,14 +18,17 @@ class Personnel(BaseModelDate):
 
     def create_new_number_of_personnel():
         """Generates a unique personnel number in the format '100XXX'."""
+        try:
+            while True:
+                random_number = random.randint(1, 999)
+                costum_format = f"100{random_number:03d}"
 
-        while True:
-            random_number = random.randint(1, 999)
-            costum_format = f"100{random_number:03d}"
+                if not Personnel.objects.filter(number_of_personnel=costum_format).exists():
 
-            if not Personnel.objects.filter(number_of_personnel=costum_format).exists():
-
-                return costum_format
+                    return costum_format
+        except:
+            raise Exception(
+                "Sorry", "All number has been generate!! for solution call to programmer!")    
 
     number_of_personnel = models.CharField(
         max_length=6,
