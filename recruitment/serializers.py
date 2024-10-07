@@ -3,7 +3,6 @@ from .models import Recruitment
 from datetime import timedelta
 from django.utils import timezone
 from core.serializer import BaseCoreSerializer
-from dateutil.relativedelta import relativedelta
 
 """
 Serializer for the Recruitment model.
