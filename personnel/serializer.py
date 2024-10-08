@@ -64,6 +64,7 @@ class PersonnelSerializer(BaseCoreSerializer):
         today = timezone.now().date()
 
         marital_status = CleanData(data.get('marital_status')).created_clean()
+        data['marital_status'] = marital_status        
         have_child= data.get('have_child')
         number_of_child= data.get('number_of_child')
 
