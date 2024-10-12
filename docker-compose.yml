@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   web:
-    image: pouryach/human_resource_managment-web
+    image: pourya_michael/human_resource_managment-web
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: ["./entrypoint.sh"]
     volumes:
       - .:/code
     ports:
