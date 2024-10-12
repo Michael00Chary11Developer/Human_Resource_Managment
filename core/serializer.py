@@ -64,7 +64,7 @@ class SalaryDetailSerializer(serializers.ModelSerializer):
             obj.base_salary,
             obj.housing_allowance,
             obj.child_allowance,
-            obj.food_allowance,
+            obj.groceries_allowance,
             obj.personnel.number_of_child,
             obj.personnel.marital_status.lower()
         )
