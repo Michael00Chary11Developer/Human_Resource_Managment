@@ -1,5 +1,5 @@
 # Use the official Python image from the Docker Hub
-FROM python:3.11.4-slim AS builder
+FROM python:3.11.4-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -14,11 +14,6 @@ COPY requirements.txt /code/
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the rest of the code into the container
 COPY . /code/
 
-FROM python:3.11.4-slim AS productions
-
-WORKDIR /code2
-
-# Copy the rest of the code into the container
-COPY --from=builder /code /code2/
