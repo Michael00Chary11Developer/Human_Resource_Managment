@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: pouria
       POSTGRES_PASSWORD: 19128228
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
 
   web:
@@ -20,7 +20,7 @@ services:
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "8080:8000"
     depends_on:
       - db
     environment:
