@@ -4,11 +4,12 @@ services:
 
   db:
     image: postgres:latest
+    hostname: postgres_db
     restart: always
     environment:
-      POSTGRES_DB: hr_db
-      POSTGRES_USER: pouria
-      POSTGRES_PASSWORD: 19128228
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
 
@@ -16,12 +17,16 @@ services:
   web:
     image: pourya_michael/human_resource_managment-web
     build: .
-    command: ["./entrypoint.sh"]
-    volumes:
-      - .:/code
+    command: make run
+    # volumes:
+    #   - .:/code
     ports:
-      - "8000:8000"
+      - "8090:8000"
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://pouria:19128228@db/hr_db
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=postgres_db
+      - POSTGRES_PORT=5432

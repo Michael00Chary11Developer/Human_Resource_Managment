@@ -21,7 +21,7 @@ router.register('manage', ResourceView)
 urlpatterns = [
     path('', include(router.urls)),
     path("asset-code/<int:asset_code>/",
-         ResourceView.as_view({"get": "list"})),
+        ResourceView.as_view({"get": "list"})),
     path('resource-name/<str:resource_name>/',
-         ResourceView.as_view({"get": "list"}))
+        ResourceView.as_view({"get": "list"}))
 ]

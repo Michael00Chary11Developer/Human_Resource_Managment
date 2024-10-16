@@ -5,6 +5,8 @@ FROM python:3.11.4-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+RUN apt update
+RUN apt install make
 # Set the working directory in the container
 WORKDIR /code
 
