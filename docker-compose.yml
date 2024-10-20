@@ -4,36 +4,30 @@ services:
 
   db:
     image: postgres:latest
-    network_mode: host
+    hostname: postgres_db
     restart: always
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    # ports:
-    #   - 5432:5432
+    ports:
+      - "5433:5432"
 
 
   web:
     image: pourya_michael/human_resource_managment-web
     build: .
     command: make run
-    network_mode: host
     # volumes:
     #   - .:/code
-    # ports:
-    #   - "8000"
+    ports:
+      - "8090:8000"
     depends_on:
       - db
     environment:
       - POSTGRES_NAME=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST=localhost
+      - POSTGRES_HOST=192.168.2.56
       - POSTGRES_PORT=5432
     restart: always
-
-  # networks:
-  # host:
-  #   name: host
-  #   external: tr
