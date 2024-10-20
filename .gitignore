@@ -20,3 +20,6 @@ salary/__pycache__
 salary/migrations
 personnel/__pycache__
 personnel/migrations
+
+#env
+.env
