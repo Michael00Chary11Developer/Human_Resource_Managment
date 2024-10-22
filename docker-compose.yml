@@ -1,11 +1,33 @@
 version: '3.8'
 
 services:
+
+  db:
+    image: postgres:latest
+    hostname: postgres_db
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5433:5432"
+
+
   web:
     image: pourya_michael/human_resource_managment-web
     build: .
-    command: ["./entrypoint.sh"]
+    command: make run
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "8090:8000"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+    restart: always
