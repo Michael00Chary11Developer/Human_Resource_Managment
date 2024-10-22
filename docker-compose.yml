@@ -11,15 +11,15 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
 
   web:
     image: pourya_michael/human_resource_managment-web
     build: .
     command: make run
-    # volumes:
-    #   - .:/code
+    volumes:
+      - .:/code
     ports:
       - "8090:8000"
     depends_on:
